@@ -1,0 +1,34 @@
+/**
+首页Metro样式设置
+**/
+#appMainContent .live-tile, .list-tile, .copy-tile, .tile-strip .flip-list > li{
+	margin:0px;
+}
+.metro-title{
+	font-size:20px;
+	padding-top:20px;
+	color:#A7AFBD;
+	font-weight:bold;
+}
+.metro-item{
+	width:100%;
+	height:80px;
+}
+.metro-item-text{
+	width:100%;
+	position:absolute;
+	top:35%;
+	text-align: center;
+	font-size:17px;
+}
+.metro-item-text-l{
+	font-size:18px;
+}
+.metro-table{
+	width: 22%;
+	float: left;
+	margin-left: 15px;
+}
+.metro-table-1-row{
+	width: 90%;
+}

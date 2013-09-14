@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SHTD UI | 首页</title>
+  <link rel="stylesheet" type="text/css" href="resource/themes/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="resource/themes/animate.css">
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="resource/themes/font-awesome-ie7.min.css">
+  <![endif]-->
+   <!--[if lt IE 9]>
+    <script src="resource/plugins/ie/html5.js" cache="false"></script>
+  <![endif]-->
+  
+</head>
+<body>
+	<header id="appHeader" class="app-header">
+		<div style="float:left;">
+			<span style="font-size:30px; color:#FFF; padding-left:20px;">SHTD  UI</span>
+			<span style="font-size:10px; color:#FFF; padding-left:5px;">beta</span>
+		</div>
+		<a href='#module=sysconfig.pageconfigmodule|{}'>页面设置</a>
+	</header>
+	<nav id="appTabNav" class="app-tab-nav" style="display:none;">
+	    <ul class="nav nav-tabs bg-info" style="height:32px;">
+		    <!-- <li><a href="#" modulehash='#module=welcome.welcomemodule|{param1:"1",param2:"2"}' data-toggle="tab">首页</a></li> -->
+		    <!-- <li><a href="#" modulehash='#module=sysconfig.pageconfigmodule|{}' data-toggle="tab">个人空间</a><b class="icon-minus-sign-alt close-tab-btn"></b></li> -->
+		  
+		    <li id="appTabNavDropdwon" class="nav-dropdown-menu">
+                <a id="nav-dropdwon-action" data-toggle="dropdown" class="dropdown-toggle btn-small config-dropdown" href="#"><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-dropdown-menu"><a class="sub-menu-tab close-all-nav-tabs" href="#"><b class="icon-remove icon-indicator"></b>关闭所有</a></li>
+                  <li class="nav-dropdown-menu"><a class="sub-menu-tab" href="#" hash="#module=sysconfig.pageconfigmodule|{}">管理标签窗口</a></li>
+                  <li class="divider nav-dropdown-menu"></li>
+                  <!-- <li class="nav-dropdown-menu"><a class="sub-menu-tab" a href="#"><b class="icon-cog"></b><span>设置</span></a></li> -->
+                  <li class="divider nav-dropdown-menu closable-section"></li>
+                </ul>
+              </li>
+		</ul>
+		<div style="clear:both;"></div>
+	</nav>
+	<section id="appSideNav" class="app-side-nav nav-vertical cross">
+		<nav>
+            <ul class="nav">
+            	<li class="active">
+                <a href="#module=welcome.welcomemodule|{}">
+                  <i class="icon-home"></i>
+                  <span>首页</span>
+                </a>
+              </li> 
+              <li>
+                <a href="index.html">
+                  <i class="icon-user"></i>
+                  <span>个人空间</span>
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  <i class="icon-group"></i>
+                  <span>班级事务</span>
+                </a>
+              </li>              
+              <li>
+                <a href="mail.html">
+                  <i class="icon-building"></i>
+                  <span>宿舍管理</span>
+                </a>
+              </li>
+              <li>
+                <a href="notes.html">
+                  <i class="icon-sitemap"></i>
+                  <span>社团管理</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+	</section>
+	<section id="appMainContent" class="app-main-content nav-vertical cross">
+		<div id="appTabNavPlaceHolder"></div>
+	</section>
+
+	<footer id="appSkin" class="skin">
+		<div class="skin-item skin-top bg-info"></div>
+		<div class="skin-item skin-top-left"></div>
+		<div class="skin-item skin-top-right"></div>
+		<div class="skin-item skin-left bg-dark nav-vertical"></div>
+		<div class="skin-item skin-left-top"></div>
+		<div class="skin-item skin-right"></div>
+		<div class="skin-item skin-right-hack"></div>
+		<div class="skin-item skin-bottom"></div>
+		<div class="skin-item skin-bottom-left"></div>
+		<div class="skin-item skin-bottom-right"></div>
+		<div id="skinFullScreen" class="skin-item skin-fullScreen"></div>
+	</footer>
+
+  <script src="resource/jquery.min.js"></script>
+  <script src="resource/puma.loader.js"></script>
+  <div id="templateHolder"></div>
+</body>
+</html>
