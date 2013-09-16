@@ -329,6 +329,15 @@
 		_changeSelectedTabTitle(title);
 	};
 	
+	$.addTemplate = function(templateId, html){
+		_addTemplate(templateId, html);
+	};
+	
+	$.getTemplateById = function(templateId){
+		return _getTemplateById(templateId);
+	};
+	
+		
 	var pluginPath = "resource/plugins/plugins/",
 	
 	templateManager = new Array();

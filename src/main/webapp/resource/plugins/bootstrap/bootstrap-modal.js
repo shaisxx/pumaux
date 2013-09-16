@@ -409,5 +409,6 @@
 			//$modal.draggable({ cursor: "move",handle: $(".modal-header",$modal) });
 			$.unloading();
 		});
+		return $modal;
 	};
 }(window.jQuery);

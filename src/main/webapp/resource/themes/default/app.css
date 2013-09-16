@@ -316,7 +316,7 @@ a, input{
 	left:220px;
 	background-color:black;
 	color:white;
-	z-index:6;
+	z-index:2000;
 	height:30px;
 	font-weight:bold;
 	text-align:center;
@@ -344,7 +344,7 @@ a, input{
     position: absolute;
     top: 0;
     color:#FFF;
-    z-index: 800;
+    z-index: 2000;
 }
 .messaging-indicator-normal {
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAaCAMAAAB2FAnXAAAAA3NCSVQICAjb4U/gAAAATlBMVEXSikLSi0PRiULQiUHPiEDOhz/Nhj3MhDzLgzvKgjrJgTnIgDjHfzfGfjbFfTXEfDTDezPCejLBeTHAeDDAdy++di2/di6+dSy8dCu9dCzCd76rAAAACXBIWXMAAArwAAAK8AFCrDSYAAAAFnRFWHRDcmVhdGlvbiBUaW1lADA0LzIxLzEy3/unGwAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAABJSURBVEiJvcGHAYAgAMCwukURFw7+f5QvmtAIULQCOgG9gEHAKGASMAsIAhYBq4AoYBOQBOwCDgGngEvALSALeAU8Aj4BRcAvqFbWfvWrI4QbAAAAAElFTkSuQmCC") repeat scroll 0 0 transparent;

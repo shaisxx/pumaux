@@ -42,7 +42,7 @@
 	outline: none;
 	position: absolute;
 	margin-top: 0;
-	top: 50%;
+	top: 40%;
 	overflow: visible; /* allow content to popup out (i.e tooltips) */
 }
 

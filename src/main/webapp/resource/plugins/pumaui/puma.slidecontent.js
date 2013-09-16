@@ -11,6 +11,11 @@
 		}
 		$(target).parent().find(".slide-item.active").removeClass("active");
 		$(target).parent().find(".sub-item").addClass("active");
+		
+		
+		//var offsettop = $('div.scrollable',$(target).parent().find(".sub-item")).offset().top;
+		$('div.scrollable',$(target).parent().find(".sub-item")).animate({scrollTop: 0}, 500);
+		
 	}
 	
 	function createSlidecontent(target){
@@ -44,6 +49,8 @@
 		        "success": function(data){
 		        	$.unloading();
 		        	$subitem.html(data);
+		        	$('div.scrollable',$subitem).scrollTop();
+		        	
 		        	if(opts.callback && typeof opts.callback == 'function'){
 		        		opts.callback.call(null, $subitem);
 		        	}

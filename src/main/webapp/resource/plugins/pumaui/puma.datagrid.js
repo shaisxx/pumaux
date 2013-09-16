@@ -118,7 +118,9 @@
 		}
 		
 		if(param){
+			console.log(queryParams);
 			queryParams = $.extend({}, queryParams, param);
+			console.log(queryParams);
 		}
 		
 		$.loading(opts.loadMsg);
@@ -148,6 +150,8 @@
 	}
 	
 	function _createTableContent(target, data){
+		$('div.scrollable',$(target)).animate({scrollTop: 0}, 300);
+		
 		var opts = $.data(target, 'datagrid').options;
 		var $table = $(target).find('table');
 		
@@ -227,7 +231,8 @@
 		var $customToolbarContainer = $('<div class="puma-datagrid-custom-toolbar">').html(opts.toolbar).appendTo($toolbarContainer);
 		var $topNavigator = $('<div class="puma-datagrid-toppaginator">').appendTo($toolbarContainer);
 		
-		var $detailContainer = $('<div class="puma-datagrid-detail-panel">').appendTo($(target))
+		
+		var $detailContainer = $('<div class="puma-datagrid-detail-panel scrollable">').appendTo($(target))
 								.scroll(function(e){
 									var top = $(this).scrollTop();
 							  		if(top > 0){
@@ -236,12 +241,12 @@
 							  			$(this).css("box-shadow","none");
 							  		}
 							  	});
-		var $table = $('<table class="table table-hover">').html("正在加载...").appendTo($detailContainer);
 		
+		var $table = $('<table class="table table-hover">').appendTo($detailContainer);
 		if (opts.pagination){
 			var $currentPageText = $('<div class="record-size-text">共<span class="record-size">0</span>条记录</div>').appendTo($topNavigator);
 			var $pageSelector = $('<div class="btn-group current-page-dropdown" style="float:left;">')
-							.append('<button type="button" class="btn btn-default btn-noboder dropdown-toggle current-page-dropdown-button" data-toggle="dropdown"><span class="current-page-text">?/?</span><span class="caret"></span></button>')
+							.append('<button type="button" class="btn btn-default btn-noboder dropdown-toggle current-page-dropdown-button" data-toggle="dropdown"><span class="current-page-text">0/0</span><span class="caret"></span></button>')
 							.append('<ul class="dropdown-menu pull-right"></ul>')
 							.appendTo($topNavigator);
 			
@@ -265,8 +270,14 @@
 		}
 	}
 	
-	function setDisabled(target, disabled){
-		
+	function getChecked(target){
+		var i = 0;
+		var rows = new Array();
+		$("input:checked:not('.check-all')",$(target)).each(function(){
+			i++;
+			rows.push($(this).closest("tr").data("data"));
+		});
+		return rows;
 	}
 	
 	$.fn.datagrid = function(options, param){
@@ -302,6 +313,9 @@
 			return jq.each(function(){
 				load(this, param);
 			});
+		},
+		getChecked: function(jq){
+			return getChecked(jq);
 		}
 	};
 	

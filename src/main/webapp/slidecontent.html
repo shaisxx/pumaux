@@ -3,17 +3,66 @@
 	<button type="button" class="btn btn-success btn-back"><b class="icon-reply"></b>&nbsp;&nbsp;返回</button>
 </div>
 <div class="page-content scrollable" style="padding:15px;">
+	<form>
+	<div>
+		<div class="bs-example">
+		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">表单中选择学生例子</div>
+	      <div class="panel panel-default">
+	        <div class="panel-body">
+	        	<div style="width:350px;float:left;padding-right:30px;">
+	        		<table>
+	        			<tr>
+	        				<td width="50px">学生：</td>
+	        				<td><input type="text" name="value[]" value="aa" class="tagselect"></td>
+	        			</tr>
+	        		</table>
+					<!-- <ul class="tagedit-list">
+						<li class="tagedit-listelement tagedit-listelement-old">
+							<span dir="ltr">Hazel Grouse</span>
+							<input type="hidden" value="Hazel Grouse" name="formdata[tags][3-a]">
+							<a	title="Remove from list." class="tagedit-close">x</a>
+						</li>
+						<li class="tagedit-listelement tagedit-listelement-old">
+							<span dir="ltr">Hazel Grouse</span>
+							<input type="hidden" value="Hazel Grouse" name="formdata[tags][3-a]">
+							<a	title="Remove from list." class="tagedit-close">x</a>
+						</li>
+						<li class="tagedit-listelement tagedit-listelement-old">
+							<span dir="ltr">Hazel Grouse</span>
+							<input type="hidden" value="Hazel Grouse" name="formdata[tags][3-a]">
+							<a	title="Remove from list." class="tagedit-close">x</a>
+						</li>
+						<li class="tagedit-listelement tagedit-listelement-old">
+							<span dir="ltr">Hazel Grouse</span>
+							<input type="hidden" value="Hazel Grouse" name="formdata[tags][3-a]">
+							<a	title="Remove from list." class="tagedit-close">x</a>
+						</li>
+						<li class="btn btn-primary btn-xs" style="float:left;"><b class="icon-search"></b></li>
+					</ul> -->
+				</div>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="highlight">
+	    	<button type="button" class="btn btn-lg btn-primary demo-check-tagselect-form">查看表单数据</button>
+	    </div>
+	</div>
+	</form>
 	<div>
 		<div class="bs-example">
 		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">查询控件例子</div>
 	      <div class="panel panel-default">
 	        <div class="panel-body">
-	        	查询控件
+	        	<div style="width:250px;float:left;padding-right:30px;">
+	        		<input type="text" class="searchstudentinput" name="studentnameorno" placeholder="请输入学生姓名或者学号">
+	        	</div>
+	        	<div style="width:250px;float:left;">
+	        		<input type="text" class="searchdormitoryinput" name="dormitoryname" placeholder="请输入宿舍号">
+	        	</div>
 	        </div>
 	      </div>
 	    </div>
 	    <div class="highlight">
-	    	asdfsa
 	    </div>
 	</div>
 	
@@ -28,35 +77,50 @@
 	      </div>
 	    </div>
 	    <div class="highlight">
-	    	asdfsa
 	    </div>
 	</div>
 	
 	<div>
 		<div class="bs-example">
-		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">选择宿舍例子</div>
+		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">弹出提示例子</div>
 	      <div class="panel panel-default">
 	        <div class="panel-body">
-	          <button type="button" class="btn btn-lg btn-primary demo-select-student">弹出宿舍选择窗口</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-prompt-alert">Alert</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-prompt-confirm">Confirm</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-prompt-prompt">Prompt</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-prompt-custom">Custom</button>
 	        </div>
 	      </div>
 	    </div>
 	    <div class="highlight">
-	    	asdfsa
 	    </div>
 	</div>
 	
 	<div>
 		<div class="bs-example">
-		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">消息提示例子</div>
+		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">顶部状态信息</div>
 	      <div class="panel panel-default">
 	        <div class="panel-body">
-	          <button type="button" class="btn btn-lg btn-primary demo-select-student">弹出消息</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-loading-btn">显示状态信息</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-unloading-btn">隐藏状态信息</button>
 	        </div>
 	      </div>
 	    </div>
 	    <div class="highlight">
-	    	asdfsa
+	    </div>
+	</div>
+	
+	<div>
+		<div class="bs-example">
+		  <div style="color:#BBBBBB;font-size:18px;padding-left:20px;">顶部消息信息</div>
+	      <div class="panel panel-default">
+	        <div class="panel-body">
+	          <button type="button" class="btn btn-lg btn-primary demo-info-messaging-btn">显示普通消息信息</button>
+	          <button type="button" class="btn btn-lg btn-primary demo-success-messaging-btn">显示成功消息信息</button>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="highlight">
 	    </div>
 	</div>
     

@@ -41,33 +41,102 @@
 				toolbar:$toolbar,
 				columns:[
 							{field:'name',title:'社团名称',rowspan:2,width:'40%',formatter: function(value,row,index){
-								var str = $('<button type="button" class="btn btn-default btn-noboder-inrow btn-noboder view-group">').text(value).click(function(){
+								var $str = $('<button type="button" class="btn btn-default btn-noboder-inrow btn-noboder view-group">').text(value).click(function(){
 									var rowData = $(this).closest("tr").data("data");
 									//alert(rowData.id);
 									$(".puma-datagrid", $content).slidecontent("showsub");
 								});
-								return str;
+								
+								return $str;
 							}},
 							{field:'sum',title:'人数',rowspan:2,width:'80px'},
 							{field:'guider',title:'辅导员',rowspan:2}
 						]
 			
-			});
-			
-			$(".puma-datagrid", $content).slidecontent({
+			}).slidecontent({
 				url:'slidecontent.html',
 				queryParams:{},
 				callback:function($subitem){
 					$subitem.find(".btn-back").click(function(){
 						$(".puma-datagrid", $content).slidecontent("showmain");
-					});
-					
-					$subitem.find(".demo-single-select-student").click(function(){
+					}).end().find(".demo-single-select-student").click(function(){
 						demoSelectStudent(true);
-					});
-					
-					$subitem.find(".demo-multi-select-student").click(function(){
+					}).end().find(".demo-multi-select-student").click(function(){
 						demoSelectStudent(false);
+					}).end().find(".searchstudentinput").searchinput({
+						actionurl:"querystudent.do",
+						callback:function(formData){
+							console.log(formData);
+							return false;
+						}
+					}).end().find(".searchdormitoryinput").searchinput({
+						templateid:'template-search-dormitory-widget',
+						actionurl:"querydorm.do",
+						placement:"bottom-right",
+						callback:function(formData){
+							return false;
+						}
+					}).end().find(".demo-prompt-alert").click(function(){
+						bootbox.alert("操作成功!", function(result) {
+						}); 
+					}).end().find(".demo-prompt-confirm").click(function(){
+						bootbox.confirm("确定要删除吗？", function(result) {
+							alert("选择结果: "+result);
+						}); 
+					}).end().find(".demo-prompt-prompt").click(function(){
+						bootbox.prompt("随便输入点什么吧！", function(result) {
+							if (result === null) {
+								alert("啥都没输入呢！");
+							} else {
+								alert("Hi <b>"+result+"</b>");
+							}
+						});
+					}).end().find(".demo-prompt-custom").click(function(){
+						bootbox.dialog({
+							message: "这是个自定义对话框",
+							title: "自定义标题",
+							buttons: {
+								success: {
+								label: "Success!",
+								className: "btn-success",
+								callback: function() {
+										alert("great success");
+									}
+								},
+								danger: {
+									label: "Danger!",
+									className: "btn-danger",
+									callback: function() {
+										alert("Danger!");
+									}
+								},
+								main: {
+									label: "Click ME!",
+									className: "btn-primary",
+									callback: function() {
+										alert("Click ME!!");
+									}
+								}
+							}
+						});
+					}).end().find(".demo-loading-btn").click(function(){
+						$.loading("显示加载状态信息");
+					}).end().find(".demo-unloading-btn").click(function(){
+						$.unloading();
+					}).end().find(".demo-messaging-btn").click(function(){
+						$.messaging("显示自定义信息!");
+					}).end().find(".demo-success-messaging-btn").click(function(){
+						$.messaging("显示自定义信息!",true);
+					}).end().find(".demo-info-messaging-btn").click(function(){
+						$.messaging("显示自定义信息,显示自定义信息,显示自定义信息，显示自定义信息，显示自定义信息显示自定义信息!");
+					}).end().find(".tagselect").tagselect({
+						selectfun:function(){
+							demoTagSelectStudent($(this));
+							//$(this).tagselect("add",{value:'123123',text:'haha'});
+						}
+					}).end().find(".demo-check-tagselect-form").click(function(){
+						var formSerialize = $(this).closest('form').formSerialize();
+						alert(formSerialize);
 					});
 				}
 			});
@@ -75,124 +144,102 @@
 		}
 	}
 	
-	
-	var searchStudentTemplate = '<table class="form-table" style="width:300px">'
-								+ '<tbody>'
-								+		'<tr>'
-								+			'<th width="80px"></th>'
-								+			'<th></th>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'姓名：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<input type="text" class="form-control">'
-								+			'</td>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'学号：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<input type="text" class="form-control">'
-								+			'</td>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'年级：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<select class="selectpicker">'
-								+					'<option value="2012">2012</option>'
-								+					'<option value="2013">2013</option>'
-								+				'</select>'
-								+			'</td>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'系：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<select class="selectpicker">'
-								+					'<option>Mustard</option>'
-								+					'<option>Ketchup</option>'
-								+					'<option>Relish</option>'
-								+				'</select>'
-								+			'</td>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'专业：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<select class="selectpicker">'
-								+					'<option>Mustard</option>'
-								+					'<option>Ketchup</option>'
-								+					'<option>Relish</option>'
-								+				'</select>'
-								+			'</td>'
-								+		'</tr>'
-								+		'<tr>'
-								+			'<td align="right" style="padding-right:10px; color:#000;">'
-								+			'班级：'
-								+			'</td>'
-								+			'<td align="left">'
-								+				'<select class="selectpicker">'
-								+					'<option>Mustard</option>'
-								+					'<option>Ketchup</option>'
-								+					'<option>Relish</option>'
-								+				'</select>'
-								+			'</td>'
-								+		'</tr>'
-								+	  ' </tbody>'
-								+	'</table>';
-	var selectStudentPopupTemplate = '<div class="popover">'
-									+	'<div class="arrow"></div><h3 class="popover-title"></h3>'
-									+	'<div class="popover-content"></div>'
-									+	'<div class="modal-footer">'
-									+		'<button type="button" class="btn btn-primary do-search">查&nbsp;&nbsp;询</button>'
-									+		'<button type="button"class="btn cacel-search">取&nbsp;&nbsp;消</button>'
-									+	'</div>'
-									+ '</div>';
-	function demoSelectStudent(isSingleSelect){
-		var id = $.util.generateRandomString(5);
+	function demoTagSelectStudent($target){
 		var option = {
-				id: id,
 				url: 'selectstudent.html',
 				width: '400px',
 				callback: function($modal){
-						var options = {
-								html:true,
-								placement:'bottom',
-								content:searchStudentTemplate,
-								template:selectStudentPopupTemplate,
-								container: $modal
-						};
-						$('.advanced-search-caret-btn',$modal).popover(options)
-																.on('shown.bs.popover', function (e) {
-																		$('.selectpicker').selectpicker();
-																	});
-						
-						$modal.on('click','.cacel-search',function(){
-							$('.advanced-search-caret-btn',$modal).popover('toggle');
-						}).on('click','.do-search',function(){
-							$('.selectpicker').selectpicker();
-							alert("开始查询");
-							//$('.advanced-search-caret-btn',$modal).popover('toggle');
-						}).on('click', '.save', function(){
-							alert("save");
+						$modal.on('click', '.save', function(){
+							var selectedData = $(".puma-datagrid", $modal).datagrid("getChecked");
+							if(selectedData.length == 0){
+								alert("请选择学生!");
+								return false;
+							}else{
+								$(selectedData).each(function(){
+									$target.tagselect("add",{value:this.id,text:this.name});
+								});
+							}
 							$modal.find("button[data-dismiss='modal']").click();
 						});
 						
-						$(".puma-datagrid", $modal).datagrid({
-							url:'testdata/group-list.json',
+						$(".searchinput", $modal).searchinput({
+							templateid:'template-search-student-widget',
+							actionurl:"querydorm.do",
+							placement:"bottom-right",
+							callback:function(formData){
+								console.log(formData);
+								updateDatagrid(formData);
+								return true;
+							}
+						});
+						
+						var $datagrid = $(".puma-datagrid", $modal);
+						
+						function updateDatagrid(formData){
+							$datagrid.datagrid({
+								url:'testdata/student-search-list.json'
+							});
+							$datagrid.datagrid("reload", formData);
+						}
+						
+						$datagrid.datagrid({
+							//url:'testdata/student-search-list.json',
+							showBottomPagination:false,
+							singleSelect:false,
+							columns:[
+										{field:'name',title:'姓名',width:'40%'},
+										{field:'student-no',title:'学号'}
+									]
+						
+						});
+						
+				}
+			};
+		$.ajaxModal(option);
+	}
+	
+	
+	function demoSelectStudent(isSingleSelect){
+		var option = {
+				url: 'selectstudent.html',
+				width: '400px',
+				callback: function($modal){
+						$modal.on('click', '.save', function(){
+							var selectedData = $(".puma-datagrid", $modal).datagrid("getChecked");
+							if(selectedData.length == 0){
+								alert("请选择学生!");
+							}
+							console.log(selectedData);
+							//$modal.find("button[data-dismiss='modal']").click();
+						});
+						
+						$(".searchinput", $modal).searchinput({
+							templateid:'template-search-student-widget',
+							actionurl:"querydorm.do",
+							placement:"bottom-right",
+							callback:function(formData){
+								console.log(formData);
+								updateDatagrid(formData);
+								return true;
+							}
+						});
+						
+						var $datagrid = $(".puma-datagrid", $modal);
+						
+						function updateDatagrid(formData){
+							$datagrid.datagrid({
+								url:'testdata/student-search-list.json'
+							});
+							$datagrid.datagrid("reload", formData);
+						}
+						
+						$datagrid.datagrid({
+							//url:'testdata/student-search-list.json',
 							showBottomPagination:false,
 							singleSelect:isSingleSelect,
 							columns:[
-										{field:'name',title:'社团名称',rowspan:2,width:'40%'},
-										{field:'sum',title:'人数',rowspan:2,width:'80px'},
-										{field:'guider',title:'辅导员',rowspan:2}
+										{field:'name',title:'姓名',width:'40%'},
+										{field:'student-no',title:'学号'}
 									]
 						
 						});

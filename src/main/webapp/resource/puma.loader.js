@@ -34,6 +34,10 @@
 			css:['bootstrap/bootstrap-select.min.css'],
 			dependencies:['bootstrap']
 		},
+		'bootstrap.bootbox':{
+			js:'bootstrap/bootstrap-bootbox.js',
+			dependencies:['bootstrap']
+		},
 		'metrojs':{
 			js:'metrojs/MetroJs.min.js',
 			css:'metrojs/MetroJs.min.css'
@@ -50,6 +54,9 @@
 		},
 		'searchinput':{
 			js:'pumaui/puma.searchinput.js'
+		},
+		'tagselect':{
+			js:'pumaui/puma.tagselect.js'
 		},
 		'pumabase':{
 			js:'puma.app.js',
@@ -77,7 +84,7 @@
 		},
 		'group.groupmodule':{
 			js:'plugins/group.groupmodule.js',
-			dependencies:['puma.init','bootstrap.modal','datagrid','slidecontent','searchinput']
+			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect']
 		},
 		'group.groupinfoviewmodule':{
 			js:'plugins/group.groupinfoviewmodule.js',
