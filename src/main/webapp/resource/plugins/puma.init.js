@@ -433,6 +433,45 @@
 		}
 	}
 	
+	function _selectMenu(hash){
+		if(hash){
+			var obj = _getParamObjFromHash(hash);
+			
+			var $sideMenuList = $("#appSideNav ul.nav > li");
+			$sideMenuList.each(function(){
+				var href = $("a",$(this)).attr("href");
+				var obj2 = _getParamObjFromHash(href);
+				if(obj2.appName == obj.appName){
+					if(!$(this).hasClass("active")){
+						$(this).addClass("active");
+						$("a",$(this)).focus();
+					}
+				}else{
+					if($(this).hasClass("active")){
+						$(this).removeClass("active");
+					}
+				}
+			});
+			
+			var $moduleMenuList = $("section.gallery.header-nav > ul > li");
+			$moduleMenuList.each(function(){
+				var href = $("a",$(this)).attr("href");
+				var obj2 = _getParamObjFromHash(href);
+				if(obj2.appName == obj.appName && obj2.moduleName == obj.moduleName){
+					if(!$(this).hasClass("active")){
+						$(this).addClass("active");
+						$("a",$(this)).addClass("glow").focus();
+					}
+				}else{
+					if($(this).hasClass("active")){
+						$(this).removeClass("active");
+						$("a",$(this)).removeClass("glow");
+					}
+				}
+			});
+		}
+	}
+	
 	function _getTabIndexById($tab, id){
 		var $childSize = $tab.find("li:not(.nav-dropdown-menu)");
 		var len = $childSize.size();
@@ -512,19 +551,6 @@
 				moduleObj = eval("$."+obj.appName+"."+obj.moduleName);
 				__load(moduleObj, contentId, obj);
 			});
-			/* var jsLocation = pluginPath + paramObj.appName+ "."+paramObj.moduleName + ".js";
-			    $.ajax( {
-		        "dataType": 'script',
-		        "url": jsLocation,
-		        "async":false,
-		        "success": function(data){
-		        	//console.log("load module "+jsLocation+" success!");
-		        },
-		        "error":function(data){
-		        	alert("加载系统JS"+jsLocation+"模块失败,请手动刷新后重试！");
-		        	return;
-				}
-		      } );*/
 		}else{
 			__load(moduleObj, contentId, obj);
 		}
@@ -649,6 +675,8 @@
   		if($(".app-main-stack:visible").height() != height){
   			$target.height(height);
   		}
+  		
+  		_selectMenu(location.hash);
   	}
   	
   	function _initNavListener(){
@@ -755,7 +783,6 @@
 	}
 	
 	function _initSystem(){
-		//$.fn.modalmanager.defaults.resize = true;
 		
 		$.loading("系统加载中...");
 		
@@ -781,13 +808,5 @@
 	$(document).ready(function() {
 		_initSystem();
 		
-		/*$(document).on('click','div',function(e){
-			var top = $(this).scrollTop();
-	  		if(top > 0){
-	  			$(this).css("box-shadow","0 2px 5px rgba(0, 0, 0, 0.176) inset");
-	  		}else{
-	  			$(this).css("box-shadow","none");
-	  		}
-	  	})*/
 	});
 })(this.jQuery, window, document);
