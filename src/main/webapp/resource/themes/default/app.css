@@ -230,7 +230,12 @@ a, input{
 #appSideNav > nav > ul > li > a span {
     font-size:15px;
 }
-#appSideNav > nav > ul > li.dropdown-submenu:hover > a, #appSideNav > nav > ul > li.dropdown-submenu:focus > a, #appSideNav > nav > ul > li > a:hover, #appSideNav > nav > ul > li > a:focus, #appSideNav > nav > ul > li > a:active, #appSideNav > nav > ul > li.active > a {
+#appSideNav > nav > ul > li.dropdown-submenu:hover > a, 
+#appSideNav > nav > ul > li.dropdown-submenu:focus > a,
+ #appSideNav > nav > ul > li > a:hover, 
+/*  #appSideNav > nav > ul > li > a:focus,  */
+ #appSideNav > nav > ul > li > a:active, 
+ #appSideNav > nav > ul > li.active > a {
     background-color: rgba(0, 0, 0, 0.075) !important;
     color: #FFFFFF;
     text-shadow: none;
