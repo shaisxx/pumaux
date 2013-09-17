@@ -40,7 +40,7 @@
 				url:'testdata/group-list.json',
 				toolbar:$toolbar,
 				columns:[
-							{field:'name',title:'社团名称',rowspan:2,width:'40%',formatter: function(value,row,index){
+							{field:'name',title:'社团名称',width:'40%',formatter: function(value,row,index){
 								var $str = $('<button type="button" class="btn btn-default btn-noboder-inrow btn-noboder view-group">').text(value).click(function(){
 									var rowData = $(this).closest("tr").data("data");
 									//alert(rowData.id);
@@ -49,8 +49,8 @@
 								
 								return $str;
 							}},
-							{field:'sum',title:'人数',rowspan:2,width:'80px'},
-							{field:'guider',title:'辅导员',rowspan:2}
+							{field:'sum',title:'人数',width:'80px'},
+							{field:'guider',title:'辅导员',}
 						]
 			
 			}).slidecontent({
