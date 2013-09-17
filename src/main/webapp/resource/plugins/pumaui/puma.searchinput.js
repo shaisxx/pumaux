@@ -8,7 +8,7 @@
 		var opts = $.data(target, 'searchinput').options;
 		if($(target).is("input")){
 			$(target).addClass("form-control query-input").css("padding-right","30px")
-					  .wrap($('<form>').addClass("input-group").attr("action", opts.actionurl))
+					  .wrap($('<form>').addClass("input-group"))
 					  .after('<div class="input-group-btn"><button tabindex="-1"  class="btn btn-success dropdown-toggle" type="submit"><b class="icon-search"></b></button></div>')
 					 .after('<div class="dropdown-toggle advanced-search-caret-btn"><b class="caret"></b></div>');
 		}
@@ -126,8 +126,8 @@
 		//templateurl:null,/*string will get template from server and store it*/
 		templateQeryParams:{},/*object When request remote data, sending additional parameters*/
 		callback:undefined,
-		placement:'bottom', /*"bottom | bottom-right"*/
-		actionurl:null
+		placement:'bottom' /*"bottom | bottom-right"*/
+		//actionurl:null
 		//container:false /*string | false Appends the popover to a specific element container: 'body'*/
 	};
 	

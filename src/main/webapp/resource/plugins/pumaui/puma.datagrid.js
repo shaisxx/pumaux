@@ -108,8 +108,8 @@
 				pageNumber:isReload?opts.pageNumber:$.data(target, 'datagrid').options.pageNumber=1,
 				pageSize:opts.pageSize
 		};
-		if(opts.soutName != null){
-			paginationParams.sortName = opts.soutName;
+		if(opts.sortName != null){
+			paginationParams.sortName = opts.sortName;
 			paginationParams.sortOrder = opts.sortOrder;
 		}
 		
@@ -336,7 +336,7 @@
 		loadMsg: '正在获取数据 …',/*string When loading data from remote site, show a prompt message.*/
 		pagination:true,/*boolean True to show a pagination toolbar on datagrid bottom.*/
 		singleSelect:false,/*boolean True to select just one. False to enable multiple select.*/
-		showBottomPagination:true,/*boolean will take effect if pagination is true. True to show a pagination toolbar on datagrid bottom. False not show it*/
+		showBottomPagination:false,/*boolean will take effect if pagination is true. True to show a pagination toolbar on datagrid bottom. False not show it*/
 		rownumbers:true,/*boolean True to show a row number column.*/
 		pageNumber:1,/*number When set pagination property, initialize the page number.*/
 		pageSize:10,/*number When set pagination property, initialize the page size.*/
