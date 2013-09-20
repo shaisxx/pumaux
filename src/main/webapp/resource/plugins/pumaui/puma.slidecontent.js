@@ -21,7 +21,7 @@
 	function createSlidecontent(target){
 		var opts = $.data(target, 'slidecontent').options;
 		
-		$(target).addClass('slide-item main-item active').height("calc(100% - 90px)");
+		$(target).addClass('slide-item main-item active');
 		
 		_loadSubitem(target, opts);
 		
@@ -32,7 +32,7 @@
 	function _loadSubitem(target, opts){
 		//var opts = $.data(target, 'slidecontent').options;
 		
-		var $subitem = $(target).find('sub-item');
+		var $subitem = $(target).next('.sub-item');
 		if($subitem.length == 0){
 			$subitem = $('<div class="slide-item sub-item">').height("calc(100% - 90px)");
 			$(target).after($subitem);
@@ -97,8 +97,8 @@
 		options: function(jq){
 			return $.data(jq[0], 'datagrid').options;
 		},
-		showsub: function(jq){
-			return jq.each(function(params){
+		showsub: function(jq,params){
+			return jq.each(function(){
 				showsub(this, params);
 			});
 		},

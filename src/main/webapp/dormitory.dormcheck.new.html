@@ -1,0 +1,55 @@
+<meta charset="utf-8">
+<div class="page-toolbar">
+	<button type="button" class="btn btn-success btn-back">
+		<b class="icon-reply"></b>&nbsp;&nbsp;返回
+	</button>
+</div>
+<div style="padding:15px;" class="page-content scrollable">
+	<table style="width:100%;">
+		<tr>
+			<td width="150" valign="top">
+				<button class="btn btn-primary btn-block select-dorm-btn" type="button">批量选择宿舍</button>
+				<ul class="list-group dormlist deletable" style="position:fixed;width:150px;max-height:400px;overflow:auto;">
+					<li class="list-group-item display-all"><a href="javascript:void(0);" data-filter="*">显示所有</a></li>
+					<!-- <li class="list-group-item"><a href="javascript:void(0);" data-filter=".glass">第一宿舍</a><b class="icon-minus-sign-alt close-tab-btn"></b></li>
+					<li class="list-group-item"><a href="javascript:void(0);" data-filter=".metal">第二宿舍</a><b class="icon-minus-sign-alt close-tab-btn"></b></li> -->
+				</ul>
+			</td>
+			<td style="padding-left:10px;" valign="top">
+				<table style="padding:10px;" cellpadding="5">
+				<tbody>
+					<tr>
+						<td>检查时间</td>
+						<td colspan="2"><input type="text" class="datepicker form-control"></td>
+					</tr>
+					<tr>
+						<td>第N次检查</td>
+						<td colspan="2">第一次</td>
+					</tr>
+					<tr class="detail-check">
+						<td><a href="javascript:void(0);" data-filter="*">应到人数(<span class="shouldbetheresum">0</span>)</a></td>
+						<td><a href="javascript:void(0);" data-filter=".indorm">实到人数(<span class="exacttheresum">0</span>)</a></td>
+						<td><a href="javascript:void(0);" data-filter=".notindorm">缺勤人数(<span class="nottheresum">0</span>)</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="isotope-container" style="width:100%;">
+				<!-- <div class="element metal" data-category="classone">
+					<div style="width:100px;height:30px;line-height:30px;text-align:center;font-size:20px;">
+						姓名
+					</div>
+					<div style="width:100px;height:20px;line-height:20px;text-align:center;font-size:10px;">
+						2216宿舍
+					</div>
+					<div>
+						<input type="checkbox" class="icheck" data-dormid="cccc" checked="checked"/>
+					</div>
+				</div> -->
+			</div>
+			</td>
+		</tr>
+	</table>
+	<div style="top:60px;left:200px;position:absolute;right:0px;">
+		
+	</div>
+</div>

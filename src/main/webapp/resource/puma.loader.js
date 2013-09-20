@@ -15,6 +15,24 @@
 			js:'jquery/jquery.ui.draggable.min.js',
 			dependencies:['jquery.ui.mouse']
 		},
+		'jquery.isotope':{
+			js:'jquery/jquery.isotope.min.js',
+			css:'isotope/isotope.css'
+		},
+		'jquery.easing':{
+			js:'jquery/jquery.easing.1.3.js'
+		},
+		'jquery.metadata':{
+			js:'ibutton/jquery.metadata.js'
+		},
+		'jquery.ibutton':{
+			js:'ibutton/jquery.ibutton.js',
+			css:'ibutton/jquery.ibutton.css',
+			dependencies:['jquery.metadata','jquery.easing']
+		},
+		'jquery.pin':{
+			js:'jquery/jquery.pin.js'
+		},
 		'bootstrap':{
 			js:'bootstrap/bootstrap.js',
 			css:['bootstrap/bootstrap.css','bootstrap/buttons.css']
@@ -32,6 +50,11 @@
 		'bootstrap.select':{
 			js:'bootstrap/bootstrap-select.min.js',
 			css:['bootstrap/bootstrap-select.min.css'],
+			dependencies:['bootstrap']
+		},
+		'bootstrap.datepicker':{
+			js:'bootstrap/bootstrap-datepicker.js',
+			css:['bootstrap/datepicker.css'],
 			dependencies:['bootstrap']
 		},
 		'bootstrap.bootbox':{
@@ -89,6 +112,10 @@
 		'group.groupinfoviewmodule':{
 			js:'plugins/group.groupinfoviewmodule.js',
 			dependencies:['puma.init']
+		},
+		'dormitory.dormcheck':{
+			js:'plugins/dormitory.dormcheck.js',
+			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect','jquery.ibutton','jquery.isotope','bootstrap.datepicker','jquery.pin']
 		}
 	};
 	

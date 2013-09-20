@@ -50,7 +50,7 @@
 								return $str;
 							}},
 							{field:'sum',title:'人数',width:'80px'},
-							{field:'guider',title:'辅导员',}
+							{field:'guider',title:'辅导员'}
 						]
 			
 			}).slidecontent({
@@ -177,9 +177,10 @@
 						
 						function updateDatagrid(formData){
 							$datagrid.datagrid({
-								url:'testdata/student-search-list.json'
+								url:'testdata/student-search-list.json',
+								queryParams:formData
 							});
-							$datagrid.datagrid("reload", formData);
+							//$datagrid.datagrid("reload", formData);
 						}
 						
 						$datagrid.datagrid({
@@ -228,9 +229,10 @@
 						
 						function updateDatagrid(formData){
 							$datagrid.datagrid({
-								url:'testdata/student-search-list.json'
+								url:'testdata/student-search-list.json',
+								queryParams:formData
 							});
-							$datagrid.datagrid("reload", formData);
+							//$datagrid.datagrid("reload", formData);
 						}
 						
 						$datagrid.datagrid({

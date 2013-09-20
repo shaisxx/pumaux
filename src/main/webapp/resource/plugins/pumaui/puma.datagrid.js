@@ -142,7 +142,8 @@
 	        	$.unloading();
 	        },
 	        "error":function(data){
-	        	alert("加载表格数据失败,请手动刷新后重试！");
+	        	console.log(data);
+	        	alert("加载表格数据失败,请重试！");
 	        	$.unloading();
 	        	return;
 			}

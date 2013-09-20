@@ -603,6 +603,7 @@ slide tab style
 }
 .puma-datagrid-toppaginator{
 	float:right;
+	width: 250px;
 }
 .puma-datagrid-toppaginator > .record-size-text{
 	float:left;
@@ -619,13 +620,14 @@ slide tab style
 }
 .puma-datagrid-custom-toolbar{
 	float:left;
+	width: calc(100% - 300px);
 }
 
 /**
 dropdown-menu
 */
 .dropdown-menu {
-	max-height:200px;
+	max-height:300px;
 	min-width:110px;
 	overflow-y:auto;
 }
@@ -807,4 +809,18 @@ popover.bottom-right
 }
 .table-responsive .highlight pre {
     white-space: normal;
+}
+
+/**deletable list**/
+ul.deletable > li > b.close-tab-btn{
+	cursor: pointer;
+	color: #CCD6E5;
+	color: rgba(0, 0, 0, 0.075);
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    transition: all 0.3s ease-in-out 0s;
+}
+ul.deletable > li > b.close-tab-btn:hover{
+    color: #428BCA;
 }
