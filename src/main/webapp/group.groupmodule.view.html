@@ -1,0 +1,80 @@
+<meta charset="utf-8">
+<div class="page-toolbar">
+	<button type="button" class="btn btn-success btn-back"><b class="icon-reply"></b>&nbsp;&nbsp;返回</button>
+	
+	<div class="btn-group pull-right" data-toggle="buttons" style="padding-right:20px;">
+	  <label class="btn btn-primary active">
+	    <input type="radio" name="grid-function" value="membermgt"> &nbsp;&nbsp;社团成员管理&nbsp;&nbsp;
+	  </label>
+	  <label class="btn btn-primary">
+	    <input type="radio" name="grid-function" value="resourcemgt"> &nbsp;&nbsp;社团资源管理&nbsp;&nbsp;
+	  </label>
+	</div>
+		
+</div>
+<div class="page-content scrollable">
+    <table width="100%">
+    	<tr>
+    		<td width="400px" valign="top">
+    			<table class="form-table groupbasicinfoarea" data-editable="enable">
+					<tbody>
+						<tr >
+							<th width="100px"></th>
+							<th></th>
+						</tr>
+						<!-- <tr>
+							<td colspan="2" style="padding:10px; border-bottom: 1px solid #DDDDDD; font-size:18px;color:#999999;">
+								基本信息：
+								<button type="button" class="btn btn-primary btn-sm edit-basic-form  pull-right">编辑</button>
+							</td>
+						</tr> -->
+						<tr>
+							<td align="right" style="padding-right:10px; color:#000;">
+								社团名称：
+							</td>
+							<td align="left">
+								<div class="editable groupname" data-pk="groupid123123" data-type="text" data-name="groupname" data-inputclass="form-control">社团名称</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding-right:10px;color:#000;">
+								社团介绍：
+							</td>
+							<td align="left">
+								<div class="editable groupintro" data-pk="groupid123123" data-type="textarea" data-name="groupintro" data-inputclass="form-control">社团介绍信息</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding-right:10px; color:#000;">
+								组织结构：
+							</td>
+							<td align="left">
+								<input type="file" id="exampleInputFile">
+								<span class="text-disabled">(请上传社团的组织结构图，大小不超过5M.)</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding-right:10px;color:#000;">
+								报名方式：
+							</td>
+							<td align="left">
+								<div type="text" class="editable groupintro"  data-type="textarea" data-inputclass="form-control">报名方式介绍</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" style="padding-right:10px; color:#000;">
+								指导老师：
+							</td>
+							<td align="left">
+								<div class="editable guider" data-pk="teacherid123123" data-type="text" data-name="guidername" data-inputclass="form-control">老师姓名</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+    		</td>
+    		<td valign="top">
+    			<div class="group-member-datagrid"></div>
+    		</td>
+    	</tr>
+    </table>
+</div>

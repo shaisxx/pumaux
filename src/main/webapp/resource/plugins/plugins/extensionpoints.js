@@ -2,6 +2,11 @@
 	"use strict"; // jshint ;_;
 	
 	$.initExtensionPoints = function(){
+		$.demo = {
+				title : "UI控件Demo",
+				closable : true,
+				defaultmodule:"demomodule"
+		};
 		$.welcome = {
 				title : "首页",
 				closable : false,

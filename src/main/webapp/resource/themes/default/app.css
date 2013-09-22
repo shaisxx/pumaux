@@ -570,6 +570,7 @@ slide tab style
 .slide-item{
 	transition: left 0.1s ease-in-out 0s;
 	over-flow:hidden;
+	position:absolute;
 }
 .slide-item.main-item{
 	left:-100%;
@@ -586,7 +587,7 @@ slide tab style
 
 /**puma-datagrid style*/
 .puma-datagrid{
-	width:100%;position:absolute
+	width:100%;
 }
 .puma-datagrid-toolbar{
 	height: 50px;

@@ -37,6 +37,11 @@
 			js:'bootstrap/bootstrap.js',
 			css:['bootstrap/bootstrap.css','bootstrap/buttons.css']
 		},
+		'bootstrap.editable':{
+			js:'bootstrap/bootstrap-editable.js',
+			css:'bootstrap/bootstrap-editable.css',
+			dependencies:['bootstrap']
+		},
 		'bootstrap.modalmanager':{
 			js:'bootstrap/bootstrap-modalmanager.js',
 			//css:'bootstrap/bootstrap-modal-bs3patch.css',
@@ -101,20 +106,24 @@
 			css:'welcome.welcomemodule.css',
 			dependencies:['puma.init','metrojs']
 		},
+		'demo.demomodule':{
+			js:'plugins/demo.demomodule.js',
+			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect']
+		},
 		'sysconfig.pageconfigmodule':{
 			js:'plugins/sysconfig.pageconfigmodule.js',
 			dependencies:['puma.init']
 		},
 		'group.groupmodule':{
 			js:'plugins/group.groupmodule.js',
-			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect']
+			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect','bootstrap.editable']
 		},
 		'group.groupinfoviewmodule':{
 			js:'plugins/group.groupinfoviewmodule.js',
 			dependencies:['puma.init']
 		},
-		'dormitory.dormcheck':{
-			js:'plugins/dormitory.dormcheck.js',
+		'dormitory.dormcheckmodule':{
+			js:'plugins/dormitory.dormcheckmodule.js',
 			dependencies:['puma.init','bootstrap.modal','bootstrap.bootbox','datagrid','slidecontent','searchinput','tagselect','jquery.ibutton','jquery.isotope','bootstrap.datepicker','jquery.pin']
 		}
 	};
