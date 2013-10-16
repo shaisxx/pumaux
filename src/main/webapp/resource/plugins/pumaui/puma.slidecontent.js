@@ -1,20 +1,20 @@
 ;(function($){
 	
 	function showmain(target, opts){
-		$(target).parent().find(".slide-item.active").removeClass("active");
-		$(target).parent().find(".main-item").addClass("active");
+		$(target).next(".slide-item.active").removeClass("active");
+		$(target).addClass("active");
 	}
 	
 	function showsub(target, params){
 		if(params && params.url){
 			_loadSubitem(target, params);
 		}
-		$(target).parent().find(".slide-item.active").removeClass("active");
-		$(target).parent().find(".sub-item").addClass("active");
+		$(target).removeClass("active");
+		$(target).next(".sub-item").addClass("active");
 		
 		
 		//var offsettop = $('div.scrollable',$(target).parent().find(".sub-item")).offset().top;
-		$('div.scrollable',$(target).parent().find(".sub-item")).animate({scrollTop: 0}, 500);
+		$('div.scrollable',$(target).next(".sub-item")).animate({scrollTop: 0}, 500);
 		
 	}
 	
@@ -34,8 +34,15 @@
 		
 		var $subitem = $(target).next('.sub-item');
 		if($subitem.length == 0){
-			$subitem = $('<div class="slide-item sub-item">').height("calc(100% - 90px)");
+			$subitem = $('<div class="slide-item sub-item">');
 			$(target).after($subitem);
+			
+			if($subitem.siblings("section.gallery").length > 0){
+				$subitem.height("calc(100% - 90px)");
+			}else{
+				$subitem.height("100%");
+			}
+			
 		}
 		
 		if(opts.url){
