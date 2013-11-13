@@ -8,11 +8,7 @@
 	};
 	
 	function init(param){
-		if(param){
-			if(param.data){
-			}
-		}
-		$(".live-tile").liveTile({
+		$(".live-tile").not(".disabled").liveTile({
 	  		playOnHover:true,
 		    repeatCount: 0,
 		    delay: 0,

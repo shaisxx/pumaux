@@ -248,9 +248,18 @@
 						placement:"bottom-right",
 						callback:function(formData){
 							console.log(formData);
-							return false;
+							updateDatagrid(formData);
+							return true;
 						}
 			}).end();
+			
+			function updateDatagrid(formData){
+				/*$(".dormcheck-datagrid", $content).datagrid("reload",{
+					url:'testdata/dorm-search-list.json',
+					queryParams:formData
+				});*/
+				$(".dormcheck-datagrid", $content).datagrid("reload", formData);
+			}
 			var $toolbar = [$toolbarButton1,$deleteButton,$searchDormButton];
 			
 			$(".dormcheck-datagrid", $content).datagrid({

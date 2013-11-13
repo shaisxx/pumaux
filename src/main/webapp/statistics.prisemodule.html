@@ -1,0 +1,128 @@
+<meta charset="utf-8">
+<section class="gallery header-nav" style="height:90px; padding-top:5px;padding-left:15px;box-shadow: 0 0 2px rgba(0, 0, 0, 0.176);">
+    <ul>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.basicmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">基本信息 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.prisemodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">奖惩统计</div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.scoremodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">成绩统计 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:35px;" href="#module=statistics.goodmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">评优统计 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍信息 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormcheckmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍考勤 </div> </li>
+    </ul>
+</section>
+<div class="scrollable" style="height:calc(100% - 90px);overflow:auto;padding:20px;">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		统计条件
+	</div>
+	  <div class="panel-body">
+	  		<table class="form-table statistics-basic-condition">
+	  			<tr>
+	    			<td width="100px;">
+	    				专业
+	    			</td>
+	    			<td>
+	    				<input type="hidden" class="major" style="width:100%;"/>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				年级
+	    			</td>
+	    			<td>
+	    				<input type="hidden" class="grade" style="width:100%;"/>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				班级
+	    			</td>
+	    			<td>
+	    				<input type="hidden" class="clazz" style="width:100%;"/>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				时间
+	    			</td>
+	    			<td class="export-config">
+	    				<input id="12001" type="checkbox" name="totop" class="y-year" data-label="2009年">
+			          	<label for="12001">2009</label>
+	    				<input id="12000" type="checkbox" name="totop" class="y-year" data-label="2010年">
+			          	<label for="12000">2010</label>
+			          	<input id="13000" type="checkbox" name="totop" class="y-year" data-label="2011年">
+			          	<label for="13000">2011</label>
+	    				<input id="000" type="checkbox" name="totop" class="y-year" data-label="2012年">
+			          	<label for="000">2012</label>
+			          	<input id="001" type="checkbox" name="totop" class="y-year" data-label="2013年">
+			          	<label for="001">2013</label>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2">
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-primary save" data-loading-text="正在生成统计报表...">生成统计报表</button>
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-danger clear">重置统计条件</button>
+		    		</td>
+		    	</tr>
+	  		</table>
+	  </div>
+	</div>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading">统计结果</div>
+	  <div class="panel-body">
+	    	<table class="table table-bordered table-condensed jzm-table" style="width:750px;text-align:center;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+	    				<th colspan="4">奖助免数据统计</th>
+	    			</tr>
+	    			<tr>
+	    				<th width="100px"></th>
+	    				<th>奖学金</th>
+	    				<th>助学金</th>
+	    				<th>免学费</th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed prise-table" style="width:750px;text-align:center;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+	    				<th colspan="9">奖励数据统计</th>
+	    			</tr>
+	    			<tr>
+	    				<th width="100px"></th>
+	    				<th>市级三好生</th>
+	    				<th>校级三好生</th>
+	    				<th>优秀班干部</th>
+	    				<th>优秀共青团员</th>
+	    				<th>优秀团干部</th>
+	    				<th>十大杰出青年</th>
+	    				<th>全勤生</th>
+	    				<th>精神文明生</th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed punish-table" style="width:750px;text-align:center;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+	    				<th colspan="7">惩罚数据统计</th>
+	    			</tr>
+	    			<tr>
+	    				<th width="100px"></th>
+	    				<th>警告</th>
+	    				<th>严重警告</th>
+	    				<th>记过</th>
+	    				<th>留校察看</th>
+	    				<th>责令退学</th>
+	    				<th>开除学籍</th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    		</tbody>
+	    	</table>
+	  </div>
+	</div>
+</div>

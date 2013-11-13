@@ -35,12 +35,17 @@
 		$.clazz = {
 				title : "班级管理",
 				closable : true,
-				defaultmodule:"groupmodule"
+				defaultmodule:"clazzstudentmodule"
 		};
 		$.community = {
 				title : "社团管理",
 				closable : true,
 				defaultmodule:"groupmodule"
+		};
+		$.statistics = {
+				title : "统计汇总",
+				closable : true,
+				defaultmodule:"basicmodule"
 		};
 	};
 })(jQuery);

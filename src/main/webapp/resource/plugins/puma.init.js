@@ -120,6 +120,8 @@
   
 })(jQuery);*/
 
+var AC = new Object();
+var w_width,w_height = 0;
 ;(function($){  
 	
 	//used to store messaging timer
@@ -338,9 +340,9 @@
 	};
 	
 		
-	var pluginPath = "resource/plugins/plugins/",
+	//var pluginPath = "resource/plugins/plugins/",
 	
-	templateManager = new Array();
+	templateManager = new Map();
 	
 	tabIdPrefix = "tab-",
 	
@@ -559,10 +561,11 @@
 			_selectTab($("#appTabNav ul.nav-tabs"), tabOptions);
 			if($content.length > 0){
 				//select content
-				$(".app-main-stack:visible").hide();
+				$("body > #appMainContent > .app-main-stack:visible").hide().find("form.parsley-form").parsley( 'destroy' );
 				$content.show();
 				
 				_checkWindowSize();
+				_selectMenu(location.hash);
 			}else{
 				_loadUrlFromModule(moduleObj, contentId, obj);
 			}
@@ -570,34 +573,42 @@
 	}
 	
 	function _addTemplate(templateId, html){
-		templateManager.push(templateId);
-		$("<div id="+templateId+">").append(html).appendTo($("#templateHolder"));
+		var tempId = $.util.generateRandomString(5);
+		templateManager.put(templateId, tempId);
+		$("<div id="+tempId+">").append(html).appendTo($("#templateHolder"));
 	}
 	
 	function _getTemplateById(templateId){
-		var $templateHtml = $("#"+templateId, $("#templateHolder"));
-		if($templateHtml.length > 0 ){
-			return  $templateHtml[0];
-		}else{
-			return undefined;
+		var tempId = templateManager.get(templateId);
+		if( tempId != null){
+			var $templateHtml = $("#"+tempId, $("#templateHolder"));
+			if($templateHtml.length > 0 ){
+				return  $templateHtml[0];
+			}else{
+				return undefined;
+			}
 		}
+		return undefined;
 	}
 	
 	function _loadUrlFromModule (moduleObj, contentId, obj){
-		var templateId = "template-"+obj.appName+"-"+obj.moduleName;
+		/*var templateId = "template-"+obj.appName+"-"+obj.moduleName;
 		var html = _getTemplateById(templateId);
     	if(html){
     		__initModule(moduleObj, html);
-    	}else{
+    	}else{*/
     		if(moduleObj.url){
+    			$("#appMainContent").addClass("gif");
     			$.ajax( {
         	        "dataType": 'html',
         	        "url": moduleObj.url,
         	        "success": function(data){
         	        	__initModule(moduleObj, data);
-        	        	_addTemplate(templateId, data);
+        	        	//_addTemplate(templateId, data);
+        	        	$("#appMainContent").removeClass("gif");
         	        },
         	        "error":function(data){
+        	        	$("#appMainContent").removeClass("gif");
         	        	alert("加载系统模块失败,请手动刷新后重试！");
         	        	return;
         			}
@@ -605,14 +616,23 @@
     		}else{
     			__initModule(moduleObj);
     		}
-    	}
+    	//}
     	
     	function __initModule(moduleObj, html){
     		if(html){
-    			$("<div>").attr("id",contentId).attr("class","app-main-stack").append(html).appendTo($("#appMainContent"));
-            	
-            	$(".app-main-stack:visible").hide();
+    			$("<div>").attr("id",contentId).attr("class","app-main-stack").append(html).appendTo($("#appMainContent")).find("form.parsley-form").parsley();
+            	$("body > #appMainContent > .app-main-stack:visible").hide().find("form.parsley-form").parsley( 'destroy' );
             	$("#"+contentId).show();
+            	
+            	$('div.scrollable',$("#"+contentId)).on('scroll',function(e){
+					var top = $(this).scrollTop();
+			  		if(top > 0){
+			  			$(this).css("box-shadow","0 2px 5px rgba(0, 0, 0, 0.176) inset");
+			  		}else{
+			  			$(this).css("box-shadow","none");
+			  		}
+			  	});
+            	
             	_checkWindowSize();
     		}
         	
@@ -620,6 +640,8 @@
         		obj.contentId = contentId;
 				moduleObj.init(obj);
 			}
+        	
+        	_selectMenu(location.hash);
     	}
 	};
 	
@@ -663,20 +685,71 @@
 		return paramObj;
 	}
 	
-  	function _checkWindowSize(){
-  		var $target = $(".app-main-stack:visible");
+	
+  	function _checkWindowSize(e){
+  		var w_w =  $(window).width(),
+			w_h = $(window).height();
+  		
+  		//有时候尺寸不变的时候，也需要重新计算尺寸，如果要强制刷新，要加入force：true参数
+  		if(e){
+  			var obj = e[0];
+  			if(obj){
+  				if(!obj.force){
+  					if(w_w == w_width && w_h == w_height){
+  			  			return;
+  			  		}
+  				}
+  			}
+  		}
+  		
+  		w_width = w_w;
+  		w_height = w_h;
+  			
+  		var $sidebar = $("#appSideNav");
+  		var $target = $("body > #appMainContent > .app-main-stack:visible");
   		var height = $(window).height();
-  		var offset = $("#appHeader").height();
+  		$sidebar.find("nav.viewport").height(height - $("#appHeader").outerHeight(true));
+  		//_initSideScrollbar();
+  		$sidebar.tinyscrollbar_update();
+  		
+  		var offset = 0;
+  		if($("#appHeader").is(":visible")){
+  			offset = $("#appHeader").outerHeight(true);
+  		}
   		//not count it when tab is hide
   		if($("#appTabNav").is(":visible")){
-  			offset += $("#appTabNav").height();
+  			offset += $("#appTabNav").outerHeight(true);
   		}
   		height = height - offset;
-  		if($(".app-main-stack:visible").height() != height){
+  		
+  		if($target.outerHeight(true) != height){
   			$target.height(height);
   		}
   		
-  		_selectMenu(location.hash);
+  		var $stackContent = $(".stack-content",$target);
+  		if($stackContent.length > 0){
+  			var stackContentHeight = $target.outerHeight(true)-90;
+  	  		$stackContent.height(stackContentHeight);
+  		}
+  		
+  		var $pContent = $(".page-content",$target);
+  		if($pContent.length > 0){
+  			var pageContentHeight = $pContent.parent().outerHeight(true);
+  			
+  			if($(".page-toolbar",$target).length > 0){
+  				pageContentHeight = pageContentHeight - $(".page-toolbar",$target).outerHeight(true);
+  			}
+  	  		$pContent.height(pageContentHeight);
+  		}
+  		
+  		var $subitem = $(".sub-item",$target);
+  		if($subitem.length > 0){
+  			$subitem.height($subitem.prev(".main-item").outerHeight(true));
+  		}
+  		
+  		//$(".puma-datagrid",$("body > #appMainContent > .app-main-stack:visible")).trigger("resize");
+  		
+  		//_selectMenu(location.hash);
   	}
   	
   	function _initNavListener(){
@@ -736,9 +809,8 @@
 			_loadModule();
 			
 			//hide nav dropdown
-			$("#appTabNavDropdwon").removeClass("open");
-			$("#appTabNavDropdwon b.icon-hand-right").remove();
-			
+			//$("#appTabNavDropdwon").removeClass("open");
+			//$("#appTabNavDropdwon b.icon-hand-right").remove();
 		});
 		
 	}
@@ -782,31 +854,176 @@
 		return options;
 	}
 	
+	function _checkMessage(){
+		var $a = $("#appHeader > a.notification-menu-item");
+		if($a.length == 1){
+			var intervalId = setInterval(function(){
+				var $i = $a.find("i");
+				var c = $i.attr("class");
+				switch(c){
+				case 'icon-volume-off':
+					$i.attr("class","icon-volume-down");
+					break;
+				case 'icon-volume-down':
+					$i.attr("class","icon-volume-up");
+					break;
+				case 'icon-volume-up':
+					$i.attr("class","icon-volume-off");
+					break;
+				}
+			},600);
+			var s = $("#dd").html();
+			console.log(s);
+			var options = {html:true,trigger:"click",placement:"bottom",content: s};
+			$a.popover(options).click(function(){
+				$a.find("i").attr("class","icon-volume-up");
+				window.clearInterval(intervalId);
+			})/*.hover(function(){
+				console.log(11);
+				$(this).popover('show');
+			},function(){
+				console.log(22);
+				$(this).popover('hide');
+			})*/;
+		}
+	}
+	
 	function _initSystem(){
+		$("#appSideNav").tinyscrollbar({autohide: true});
+		$.ajax( {
+	        "dataType": 'json',
+	        "type":"post",
+	       "url": 'get_user_permission_json.do',
+	       // "url":'../testdata/ac.json',
+	        "success": function(data){
+	        	if(AC && data){
+	        		AC = data[0];
+	        		//console.log(AC.DormMgt.DormAttend.add);
+	        	}
+	        	$.initExtensionPoints();
+	    		
+	    		_initHashChangeListener();
+	    		
+	    		_initNavListener();
+	    		
+	    		_loadPreloadModule();
+	    		
+	    		_loadModule();
+	    		
+	    		$.unloading();
+	    		
+	    		if(window.Pace){
+    				Pace.stop();
+    				$(".loading-status",$("#loading-system")).text("加载完毕！");
+    			}
+	    		setTimeout(function(){
+	    			$("#loading-system").fadeOut(500);
+	    			//$("#loading-system").addClass("fadeOutRightBig animated");
+	    		},500);
+	    		_checkMessage();
+	        },
+	        "error":function(data){
+	        	$.unloading();
+	        	alert("用户权限加载失败,请刷新后重试！");
+	        	return;
+			}
+	      } );
 		
-		$.loading("系统加载中...");
+		$(document).on('click', function ( e ) {
+			if($(e.target).is("label")){
+				if(!$(e.target).attr("for")){
+					$(e.target).attr("for","abc");
+				}
+				$("input",$(e.target)).click();
+				e.stopPropagation();
+			}
+		});
 		
-		$.initExtensionPoints();
-		
-		_initHashChangeListener();
-		
-		_initNavListener();
-		
-		_loadPreloadModule();
-		
-		_loadModule();
-		
-	  	$(window).resize(function() {
+		/*$(document).on('click', 'label>input', function ( e ) {
+			e.stopPropagation();
+		});*/
+	  	/*$(window).resize(function(e) {
+	  		_checkWindowSize(e);
+	  	});*/
+	  	$(window).resize( $.throttle( 250, function() {
 	  		_checkWindowSize();
-	  	});
-	  	
-	  	$.unloading();
-		$.messaging("系统加载成功,进入系统!",true);
+	  	} ) ); 
 	}
 	
 	//Initializing of the Puma System
 	$(document).ready(function() {
 		_initSystem();
-		
 	});
+	
+	window.onbeforeunload = function(e){
+		 e = e || window.event;
+		  // 兼容IE8和Firefox 4之前的版本
+		  if (e) {
+		    e.returnValue = '确定退出学工系统吗?';
+		  }
+		  // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+		  return '确定退出学工系统吗?';
+	};
+	
 })(this.jQuery, window, document);
+
+/**
+ * 
+ * 统一处理ajax事件
+ * 
+ * */
+
+
+;(function($){  
+	var $noauthString = '<div class="noauth" style="width:100%;height:100%;padding:50px;text-align:center;color:#5BC0DE">'
+					+		'<h1>'
+					+			'<i class="icon-lock"  data-dismiss="modal" style="font-size:100px;"></i>'
+					+		'</h1>'
+					+		'<h2 style="margin-bottom:40px;">'
+					+		'您没有权限使用该功能！'
+					+		'</h2>'
+					+			'<a class="btn btn-lg btn-primary" href="./index.do" style="margin-right:20px;">'
+					+				'<i class="icon-home" style="margin-right:10px;font-size:18px;"></i>'
+					+				'返回首页'
+					+			'</a>'
+					+			'<a class="btn btn-lg btn-default" href="./login.do">'
+					+				'<i class="icon-unlock" style="margin-right:10px;font-size:18px;"></i>'
+					+				'重新登录'
+					+			'</a>'
+					+	'</div>';
+    var ajax=$.ajax;  
+    $.ajax=function(s){  
+        var old=s.error;  
+        var oldSuccess = s.success;
+        s.success=function(msg){
+        	if(msg != undefined){
+        		//TODO 根据自己返回内容定义，可以有多个if
+        		if(msg == "no-auth" || msg == "no-login"){
+        			//TODO 可以返回到登录也，也可以使弹出登录窗口，目前选择跳转登录页面
+        			/*$.messaging("您没有权限使用该模块,3秒后返回登录页！","false",3000);
+        			setTimeout(function(){
+        				window.location.href="./login.do";
+        			}, 3000);*/
+        			msg = $noauthString;
+        		}
+        	}
+        	if(oldSuccess != undefined){
+        		oldSuccess(msg);
+			}
+        };
+        //var errHeader=s.errorHeader||"Error-Json";  
+        s.error=function(XMLHttpRequest, textStatus, errorThrown){  
+            //var errMsg = window["eval"]("(" + xhr.getResponseHeader(errHeader) + ")");
+			if(XMLHttpRequest.status == 403){
+				//TODO 出错代码可以集中写在这里
+			}
+		
+            //old(xhr,status,errMsg||err);  
+			if(old != undefined){
+				old(XMLHttpRequest, textStatus, errorThrown);
+			}
+        };
+        ajax(s);  
+    };
+  
+})(jQuery);

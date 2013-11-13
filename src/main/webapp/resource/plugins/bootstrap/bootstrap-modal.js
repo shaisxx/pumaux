@@ -390,6 +390,9 @@
 	$.ajaxModal = function(customOptions){
 		var options = $.extend({}, defaultAjaxModalOption, customOptions);
 		$.loading("正在加载页面...");
+		if(!options.id){
+			options.id = $.util.generateRandomString(5);
+		}
 		//$('body').modalmanager('loading');
 		var $modal = $("#"+options.id);
 		if($modal.length == 0){

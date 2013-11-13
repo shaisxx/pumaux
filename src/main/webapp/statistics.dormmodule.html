@@ -1,0 +1,114 @@
+<meta charset="utf-8">
+<section class="gallery header-nav" style="height:90px; padding-top:5px;padding-left:15px;box-shadow: 0 0 2px rgba(0, 0, 0, 0.176);">
+    <ul>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.basicmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">基本信息 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.prisemodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">奖惩统计</div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.scoremodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">成绩统计 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:35px;" href="#module=statistics.goodmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">评优统计 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍信息 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormcheckmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍考勤 </div> </li>
+    </ul>
+</section>
+<div class="scrollable" style="height:calc(100% - 90px);overflow:auto;padding:20px;">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		统计条件
+	</div>
+	  <div class="panel-body">
+	  		<table class="form-table statistics-basic-condition">
+	  			<tr>
+	    			<td width="100px;">
+	    				楼栋
+	    			</td>
+	    			<td>
+	    				<input type="hidden" class="building" style="width:100%;"/>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				楼层
+	    			</td>
+	    			<td>
+	    				<input type="hidden" class="floor" style="width:100%;"/>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				违纪
+	    			</td>
+	    			<td class="export-config">
+	    				<input id="basd1212" type="radio" name="violate" checked>
+			          	<label for="basd1212">不限</label>
+			          	<input id="basd1313" type="radio" name="violate">
+			          	<label for="basd1313">是</label>
+			          	<input id="basd131312" type="radio" name="violate">
+			          	<label for="basd131312">否</label>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				损坏公物
+	    			</td>
+	    			<td class="export-config">
+	    				<input id="asd12" type="radio" name="damage" checked>
+			          	<label for="asd12">不限</label>
+			          	<input id="asd1212" type="radio" name="damage">
+			          	<label for="asd1212">是</label>
+			          	<input id="asd121212" type="radio" name="damage">
+			          	<label for="asd121212">否</label>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				评优
+	    			</td>
+	    			<td class="export-config">
+	    				<input id="bas12" type="radio" name="good" checked>
+			          	<label for="bas12">不限</label>
+			          	<input id="bas1212" type="radio" name="good">
+			          	<label for="bas1212">0-60</label>
+			          	<input id="bas121212" type="radio" name="good">
+			          	<label for="bas121212">61-80</label>
+			          	<input id="bas12121212" type="radio" name="good">
+			          	<label for="bas12121212">81-90</label>
+			          	<input id="bas1212121212" type="radio" name="good">
+			          	<label for="bas1212121212">91-100</label>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td width="100px;">
+	    				时间
+	    			</td>
+	    			<td class="export-config">
+	    				<input id="12001" type="checkbox" name="totop" class="y-year" data-label="2009年">
+			          	<label for="12001">2009</label>
+	    				<input id="12000" type="checkbox" name="totop" class="y-year" data-label="2010年">
+			          	<label for="12000">2010</label>
+			          	<input id="13000" type="checkbox" name="totop" class="y-year" data-label="2011年">
+			          	<label for="13000">2011</label>
+	    				<input id="000" type="checkbox" name="totop" class="y-year" data-label="2012年">
+			          	<label for="000">2012</label>
+			          	<input id="001" type="checkbox" name="totop" class="y-year" data-label="2013年">
+			          	<label for="001">2013</label>
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2">
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-primary save" data-loading-text="正在生成统计报表...">生成统计报表</button>
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-danger clear">重置统计条件</button>
+		    		</td>
+		    	</tr>
+	  		</table>
+	  </div>
+	</div>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading">统计结果</div>
+	  <div class="panel-body">
+	    	<table class="table-bordered table-condensed result-table" style="text-align:center;">
+	    	</table>
+	    	<div class="report">
+	    	</div>
+	  </div>
+	</div>
+</div>

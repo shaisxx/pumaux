@@ -1,8 +1,9 @@
 ;(function($){
 	
 	function createTagselect(target){
-		$.data(target, 'tagselect').options.name = $(target).attr("name");
 		var opts = $.data(target, 'tagselect').options;
+		
+		opts.name = $(target).attr("name");
 		
 		if($(target).is("input")){
 			//var $ul = $(target).after('<ul class="tagedit-list">');
@@ -16,6 +17,10 @@
 				    				opts.selectfun.call(target);
 				    			}
 							});
+			
+			if(opts.singleSelect){
+				$ul.children("li:not(.btn)").remove();
+			}
 		}
 	}
 	
@@ -26,9 +31,15 @@
 </li>
 */
 	function _addTag(target, param){
-		var name = $.data(target, 'tagselect').options.name;
+		var opts = $.data(target, 'tagselect').options;
+		var name = opts.name;
+		
 		var $ul = $(target).next("ul.tagedit-list");
-		console.log($ul)
+		
+		if(opts.singleSelect){
+			$ul.children("li:not(.btn)").remove();
+		}
+		
 		$li = $('<li class="tagedit-listelement tagedit-listelement-old">')
 				.append('<span>'+param.text+'</span>')
 				.append('<input type="hidden" value="'+param.value+'" name="'+name+'">')
@@ -44,14 +55,15 @@
 		
 		options = options || {};
 		return this.each(function(){
-			var state = $.data(this, 'tagselect');
-			if (state){
+			//var state = $.data(this, 'tagselect');
+			/*if (state){
 				$.extend(state.options, options);
-			} else {
+			} else {*/
+			var o = $.extend($.fn.tagselect.defaults, $.fn.tagselect.parseOptions(this), options);
 				$.data(this, 'tagselect', {
-					options: $.extend({}, $.fn.tagselect.defaults, $.fn.tagselect.parseOptions(this), options)
+					options: o
 				});
-			}
+			/*}*/
 			
 			createTagselect(this);
 		});
@@ -73,7 +85,8 @@
 	};
 	
 	$.fn.tagselect.defaults = {
-		selectfun:undefined
+		selectfun:undefined,
+		singleSelect:false
 	};
 	
 })(jQuery);

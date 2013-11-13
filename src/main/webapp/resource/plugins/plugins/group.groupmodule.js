@@ -7,6 +7,72 @@
 			init:init
 	};
 	
+	function demoTagSelectStudent($target){
+		var option = {
+				url: 'selectstudent.html',
+				width: '400px',
+				callback: function($modal){
+						$modal.on('click', '.save', function(){
+							var selectedData = $(".puma-datagrid", $modal).datagrid("getChecked");
+							if(selectedData.length == 0){
+								alert("请选择指导老师!");
+								return false;
+							}else{
+								$(selectedData).each(function(){
+									$target.prev("span.guider").html(this.name+"<input type='hidden' value='"+this.id+"' name='guider'>");
+								});
+							}
+							$modal.find("button[data-dismiss='modal']").click();
+						});
+						
+						var $datagrid = $(".puma-datagrid", $modal);
+						
+						function updateDatagrid(formData){
+							$datagrid.datagrid({
+								url:'testdata/student-search-list.json',
+								queryParams:formData
+							});
+							//$datagrid.datagrid("reload", formData);
+						}
+						
+						$datagrid.datagrid({
+							url:'testdata/student-search-list.json',
+							singleSelect:true,
+							columns:[
+										{field:'name',title:'姓名',width:'40%'},
+										{field:'student-no',title:'学号'}
+									],
+							showSearch:true,
+							showSearchConfig:{
+									advancedSearch:true,
+									advancedSearchConfig:{
+										standalone:true,
+										templateUrl:'querystudenttemplate.html',
+										templateInitData:{key:'123'},
+										showCallback:function($container){
+											$('.selectpicker',$container).selectpicker();
+										},
+										hideCallback:function($container){
+										},
+										placement:'bottom'
+									}
+							},
+							success:function(data){
+								updateDatagrid(data);
+								return true;
+							},
+							error:function(data){
+								console.log(data);
+								alert("查询错误!");
+							}
+						
+						});
+						
+				}
+			};
+		$.ajaxModal(option);
+	}
+	
 	function init(param){
 		var contentId = param.contentId;
 		var $content = $('#'+contentId);
@@ -47,7 +113,6 @@
 				columns:[
 							{field:'name',title:'社团名称',width:'40%',formatter: function(value,row,index){
 								var $str = $('<button type="button" class="btn btn-default btn-noboder-inrow btn-noboder view-group">').text(value).click(function(){
-									var rowData = $(this).closest("tr").data("data");
 									$(".group-datagrid", $content).slidecontent({
 										url:'group.groupmodule.view.html',
 										queryParams:{},
@@ -55,25 +120,13 @@
 											
 											buildMemberMgtGrid($subitem);
 											
-											//检查是否有编辑权限
-											var $groupbasicinfoarea = $subitem.find(".groupbasicinfoarea");
-											if($groupbasicinfoarea.length > 0 && $groupbasicinfoarea.attr("data-editable") == "enable"){
-												$.fn.editable.defaults.mode = 'inline';
-												$.fn.editable.defaults.url = '/post'; 
-												$('.editable',$subitem).editable({
-														 url: 'updateGroupInfo.do',
-														 //name: 'groupname',
-														 //type:'text',
-														 //inputclass:'form-control',
-														 //pk:'id',
-														 success: function(data, config) {
-															 
-														 },
-														 error: function(errors) {
-															 console.log(errors);
-														 }
-												});
-											}
+											$(".guider-search-btn",$subitem).click(function(){
+												demoTagSelectStudent($(this));
+											});
+											
+											$(".save",$subitem).click(function(){
+												alert("保存");
+											});
 											
 											//人员管理和资源管理的表格功能切换
 											$("input[type='radio'][name='grid-function']",$subitem).change( function() {
@@ -166,7 +219,7 @@
 		});
 	}
 	
-	function buildResourceMgtGrid($subitem){
+	function buildResourceMgtGrid($content){
 		var $addNewResourceBtn = $('<button type="button" class="btn btn-success create-group"><span style="font-weight:bold;">+</span>&nbsp; 新增社团资源</button>').click(function(){
 			var id = $.util.generateRandomString(5);
 			var option = {
@@ -179,14 +232,14 @@
 					//新增资源后关闭模态窗口
 					$modal.find("button[data-dismiss='modal']").click();
 					//并刷新资源列表
-					$subitem.find(".group-member-datagrid").datagrid("load");
+					$content.find(".group-member-datagrid").datagrid("load");
 				});}
 			};
 			$.ajaxModal(option);
 		});
 		
 		var $deleteResourceButton = $('<button class="btn btn-danger" type="button" style="margin-left:10px;margin-right:10px;">删除社团资源</button>').click(function(){
-			var selectedData = $(".group-member-datagrid", $subitem).datagrid("getChecked");
+			var selectedData = $(".group-member-datagrid", $content).datagrid("getChecked");
 			if(selectedData.length == 0){
 				alert("请选择要删除的资源!");
 				return;
@@ -200,11 +253,16 @@
 		
 		var $toolbar = [$addNewResourceBtn,$deleteResourceButton];
 		
-		$subitem.find(".group-member-datagrid").datagrid({
+		$content.find(".group-member-datagrid").datagrid({
 			url:'testdata/group-resource-list.json',
 			toolbar:$toolbar,
 			columns:[
-						{field:'name',title:'资源名称',width:'40%'},
+						{field:'name',title:'资源名称',width:'40%',formatter: function(value,row,index){
+							var $str = $('<button type="button" class="btn btn-default btn-noboder-inrow btn-noboder view-group">').text(value).click(function(){
+							});
+							
+							return $str;
+						}},
 						{field:'member',title:'发布人'},
 						{field:'datetime',title:'发布时间'}
 					]

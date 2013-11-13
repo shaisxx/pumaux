@@ -1,0 +1,54 @@
+{
+    "total": "100",
+    "rows": [
+        {
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2216",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2217",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2218",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2219",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2220",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "dorm-no": "2221",
+            "dorm-floor": "2",
+            "student-sum":"5",
+            "violation":"5",
+            "damage":"1",
+            "score":"90"
+        }
+    ]
+}

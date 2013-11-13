@@ -1,0 +1,246 @@
+<meta charset="utf-8">
+<section class="gallery header-nav" style="height:90px; padding-top:5px;padding-left:15px;box-shadow: 0 0 2px rgba(0, 0, 0, 0.176);">
+    <ul>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.basicmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">基本信息 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.prisemodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">奖惩统计</div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:30px;" href="#module=statistics.scoremodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">成绩统计 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:35px;" href="#module=statistics.goodmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">评优统计 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍信息 </div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:35px;" href="#module=statistics.dormcheckmodule|{}"><i class="icon-bar-chart"></i></a><div class="text-label">宿舍考勤 </div> </li>
+    </ul>
+</section>
+<div class="scrollable" style="height:calc(100% - 90px);overflow:auto;padding:20px;">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		统计条件
+	</div>
+	  <div class="panel-body">
+	  		<table class="form-table statistics-basic-condition">
+	  			<tr>
+	    			<td width="100px;">
+	    				日期：
+	    			</td>
+	    			<td>
+	    				<input type="text" class="datepicker form-control">
+	    			</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2">
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-primary save" data-loading-text="正在生成统计报表...">生成宿舍考勤报表</button>
+		    			
+		    			<button style="margin-left:0 10px;margin-right:10px;" type="button" class="btn btn-primary save" data-loading-text="正在导出统计报表...">导出宿舍考勤报表</button>
+		    		</td>
+		    	</tr>
+	  		</table>
+	  </div>
+	</div>
+	
+	<div class="panel panel-default">
+	  <div class="panel-heading">统计结果</div>
+	  <div class="panel-body">
+	  		<div class="check-report" style="float:left;">
+	    	</div>
+	    	<div class="violate-report" style="float:left;"> 
+	    	</div>
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="3" style="text-align:center;">
+		    				全校学生住宿情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>考勤人数</th>
+		    			<th>缺勤人数</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>男生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>女生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;margin-left:20px;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="6" style="text-align:center;">
+		    				全校学生违规情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>全校</th>
+		    			<th>一栋</th>
+		    			<th>二栋</th>
+		    			<th>三栋</th>
+		    			<th>四栋</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>违规次数</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    			</tr>
+	    			<tr>
+	    				<td>损坏公物</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总数</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    				<td>12</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="3" style="text-align:center;">
+		    				一栋学生住宿情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>考勤人数</th>
+		    			<th>缺勤人数</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>男生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>女生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;margin-left:20px;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="4" style="text-align:center;">
+		    				二栋学生住宿情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>考勤人数</th>
+		    			<th>缺勤人数</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>男生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>女生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="4" style="text-align:center;">
+		    				三栋学生住宿情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>考勤人数</th>
+		    			<th>缺勤人数</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>男生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>女生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    	<table class="table table-bordered table-condensed result-table" style="width:400px;float:left;margin-left:20px;">
+	    		<thead>
+	    			<tr style="background-color:#F5F5F5">
+		    			<th colspan="4" style="text-align:center;">
+		    				四栋学生住宿情况
+		    			</th>
+		    		</tr>
+		    		<tr>
+		    			<th></th>
+		    			<th>考勤人数</th>
+		    			<th>缺勤人数</th>
+		    		</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td>男生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>女生人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    			<tr>
+	    				<td>总人数</td>
+	    				<td>123</td>
+	    				<td>123</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	  </div>
+	</div>
+</div>

@@ -1,5 +1,5 @@
 ;(function(){
-	"use strict"; // jshint ;_;
+	//"use strict"; // jshint ;_;
 	
 	$.demo.demomodule = {
 			url : "demo.demomodule.html",
@@ -7,21 +7,38 @@
 			init:init
 	};
 	
+	function openModal($modal){
+		$(".open-modal",$modal).click(function(){
+			var option2 = {
+					url: 'test.html',
+					width: '400px',
+					callback: function($submodal){
+						openModal($submodal);
+					}
+			};
+			$.ajaxModal(option2);
+		});
+	}
+	
 	function init(param){
 		var contentId = param.contentId;
 		var $content = $('#'+contentId);
 		if($content.length > 0){
 			//弹出窗口
 			var $toolbarButton1 = $('<button type="button" class="btn btn-success create-group"><span style="font-weight:bold;">+</span>&nbsp; 弹出窗口按钮</button>').click(function(){
-				var id = $.util.generateRandomString(5);
 				var option = {
-					id: id,
 					url: 'test.html',
 					width: '650px',
-					callback: function($modal){$modal.on('click', '.save', function(){
-						alert("save");
-						$modal.find("button[data-dismiss='modal']").click();
-					});}
+					callback: function($modal){
+						
+						$modal.on('click', '.save', function(){
+							alert("save");
+							$modal.find("button[data-dismiss='modal']").click();
+						});
+						
+						openModal($modal);
+						
+					}
 				};
 				$.ajaxModal(option);
 			});
@@ -35,6 +52,18 @@
 			});
 			
 			var $toolbar = [$toolbarButton1,$toolbarButton2,$toolbarButton3];
+			
+			function infiniteSlide($target){
+				$target.slidecontent({
+					url:'infiniteslidecontent.html',
+					queryParams:{},
+					callback:function($subitem2){
+						$subitem2.find(".btn-back").click(function(){
+							$target.slidecontent("showmain");
+						});
+					}
+				}).slidecontent("showsub");
+			}
 			
 			$(".puma-datagrid", $content).datagrid({
 				url:'testdata/group-list.json',
@@ -51,12 +80,40 @@
 							}},
 							{field:'sum',title:'人数',width:'80px'},
 							{field:'guider',title:'辅导员'}
-						]
+						],
+				showSearch:true,
+				showSearchConfig:{
+					placeholder:'请输入demo关键字',
+					actionurl:"querydorm.do",
+					advancedSearch:true,
+					advancedSearchConfig:{
+							templateUrl:'querystudenttemplate.html',
+							templateInitData:{key:'123'},
+							showCallback:function($container){
+								$('.selectpicker',$container).selectpicker();
+							},
+							hideCallback:function($container){
+							},
+							placement:'bottom'},
+					success:function(data){
+						console.log(data);
+						return false;
+					},
+					error:function(data){
+						console.log(data);
+						alert("查询错误!");
+					}
+				}
 			
 			}).slidecontent({
 				url:'slidecontent.html',
 				queryParams:{},
 				callback:function($subitem){
+					$subitem.find(".slideit").click(function(){
+						var $target = $(this).closest(".slide-item");
+						infiniteSlide($target);
+					});
+					
 					$subitem.find(".btn-back").click(function(){
 						$(".puma-datagrid", $content).slidecontent("showmain");
 					}).end().find(".demo-single-select-student").click(function(){
@@ -64,17 +121,56 @@
 					}).end().find(".demo-multi-select-student").click(function(){
 						demoSelectStudent(false);
 					}).end().find(".searchstudentinput").searchinput({
-						actionurl:"querystudent.do",
-						callback:function(formData){
-							console.log(formData);
+						actionurl:"querydorm.do",
+						advancedSearch:true,
+						advancedSearchConfig:{
+								templateUrl:'querystudenttemplate.html',
+								templateInitData:{key:'123'},
+								showCallback:function($container){
+									$('.selectpicker',$container).selectpicker();
+								},
+								hideCallback:function($container){
+								},
+								placement:'bottom'},
+						success:function(data){
+							console.log(data);
 							return false;
+						},
+						error:function(data){
+							console.log(data);
+							alert("查询错误!");
 						}
 					}).end().find(".searchdormitoryinput").searchinput({
-						templateid:'template-search-dormitory-widget',
 						actionurl:"querydorm.do",
-						placement:"bottom-right",
-						callback:function(formData){
+						advancedSearch:true,
+						advancedSearchConfig:{
+								templateUrl:'querydormitorytemplate.html',
+								templateInitData:{key:'123'},
+								showCallback:function($container){
+									$('.selectpicker',$container).selectpicker();
+								},
+								hideCallback:function($container){
+								},
+								placement:'bottom-right'
+						},
+						success:function(data){
+							console.log(data);
 							return false;
+						},
+						error:function(data){
+							console.log(data);
+							alert("查询错误!");
+						}
+					}).end().find(".simplesearchinput").searchinput({
+						actionurl:"querystudent.do",
+						actiondata:{key:'123123',keys:'2334234'},
+						success:function(data){
+							console.log(data);
+							return false;
+						},
+						error:function(data){
+							console.log(data);
+							alert("查询错误!");
 						}
 					}).end().find(".demo-prompt-alert").click(function(){
 						bootbox.alert("操作成功!", function(result) {
@@ -149,6 +245,7 @@
 				url: 'selectstudent.html',
 				width: '400px',
 				callback: function($modal){
+					
 						$modal.on('click', '.save', function(){
 							var selectedData = $(".puma-datagrid", $modal).datagrid("getChecked");
 							if(selectedData.length == 0){
@@ -162,14 +259,93 @@
 							$modal.find("button[data-dismiss='modal']").click();
 						});
 						
-						$(".searchinput", $modal).searchinput({
-							templateid:'template-search-student-widget',
-							actionurl:"querydorm.do",
-							placement:"bottom-right",
-							callback:function(formData){
-								console.log(formData);
-								updateDatagrid(formData);
+						var $datagrid = $(".puma-datagrid", $modal);
+						
+						function updateDatagrid(formData){
+							$datagrid.datagrid({
+								url:'testdata/student-search-list.json',
+								queryParams:formData
+							});
+							//$datagrid.datagrid("reload", formData);
+						}
+						
+						$datagrid.datagrid({
+							url:'testdata/student-search-list.json',
+							columns:[
+										{field:'name',title:'姓名',width:'40%'},
+										{field:'student-no',title:'学号'}
+									],
+							showSearch:true,
+							showSearchConfig:{
+									advancedSearch:true,
+									advancedSearchConfig:{
+										standalone:true,
+										templateUrl:'querystudenttemplate.html',
+										templateInitData:{key:'123'},
+										showCallback:function($container){
+											$('.selectpicker',$container).selectpicker();
+										},
+										hideCallback:function($container){
+										},
+										placement:'bottom'
+									}
+							},
+							success:function(data){
+								updateDatagrid(data);
 								return true;
+							},
+							error:function(data){
+								console.log(data);
+								alert("查询错误!");
+							}
+						
+						});
+						
+				}
+			};
+		$.ajaxModal(option);
+	}
+	
+	
+	/*function demoTagSelectStudent($target){
+		var option = {
+				url: 'selectstudent.html',
+				width: '400px',
+				callback: function($modal){
+						$modal.on('click', '.save', function(){
+							var selectedData = $(".puma-datagrid", $modal).datagrid("getChecked");
+							if(selectedData.length == 0){
+								alert("请选择学生!");
+								return false;
+							}else{
+								$(selectedData).each(function(){
+									$target.tagselect("add",{value:this.id,text:this.name});
+								});
+							}
+							$modal.find("button[data-dismiss='modal']").click();
+						});
+						
+
+						$(".searchinput", $modal).searchinput({
+
+							actionurl:"querydorm.do",
+							advancedSearch:true,
+							advancedSearchConfig:{
+									templateUrl:'querystudenttemplate.html',
+									templateInitData:{key:'123'},
+									showCallback:function($container){
+										$('.selectpicker',$container).selectpicker();
+									},
+									hideCallback:function($container){
+									},
+									placement:'bottom'},
+							success:function(data){
+								updateDatagrid(data);
+								return true;
+							},
+							error:function(data){
+								console.log(data);
+								alert("查询错误!");
 							}
 						});
 						
@@ -197,7 +373,7 @@
 				}
 			};
 		$.ajaxModal(option);
-	}
+	}*/
 	
 	
 	function demoSelectStudent(isSingleSelect){
@@ -219,7 +395,6 @@
 							actionurl:"querydorm.do",
 							placement:"bottom-right",
 							callback:function(formData){
-								console.log(formData);
 								updateDatagrid(formData);
 								return true;
 							}

@@ -1,0 +1,17 @@
+.typeaheadmap {
+  margin-top: 2px;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.typeaheadmap.dropdown-menu > .active, 
+.typeaheadmap.dropdown-menu > .active > a:hover, 
+.typeaheadmap.dropdown-menu > .active > a:focus {
+    background-color: #428BCA;
+    color: #FFFFFF;
+    outline: 0 none;
+    text-decoration: none;
+    cursor:pointer;
+}
+

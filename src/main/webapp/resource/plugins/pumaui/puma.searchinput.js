@@ -1,82 +1,131 @@
 ;(function($){
 	
-	var templateurl = {};
-	templateurl['template-search-student-widget'] = "querystudenttemplate.html";
-	templateurl['template-search-dormitory-widget'] = "querydormitorytemplate.html";
-	
 	function createSearchinput(target){
 		var opts = $.data(target, 'searchinput').options;
+		var $wrapper = $('<form>').addClass("input-group");
 		if($(target).is("input")){
-			$(target).addClass("form-control query-input").css("padding-right","30px")
-					  .wrap($('<form>').addClass("input-group"))
-					  .after('<div class="input-group-btn"><button tabindex="-1"  class="btn btn-success dropdown-toggle" type="submit"><b class="icon-search"></b></button></div>')
-					 .after('<div class="dropdown-toggle advanced-search-caret-btn"><b class="caret"></b></div>');
+			$(target)//.attr("placeholder",opts.placeholder)
+					  .addClass("form-control query-input").css("float","left")
+					  .wrap($wrapper)
+					  .after('<div class="input-group-btn"><button style="float:left;" tabindex="-1"  class="btn btn-success dropdown-toggle" type="submit"><b class="icon-search"></b></button></div>');
+			if(opts.advancedSearch == true){
+				$(target).css("padding-right","30px").after('<div class="dropdown-toggle advanced-search-caret-btn"><b class="caret"></b></div>');
+			}
 		}
 		
 		var $form = $(target).parent('form');
 		if($form.length > 0){
 			$form.on('submit',function(e){
 				if (e) e.preventDefault();
+				//避免非高级查询状态下，用户进行空查询
+        		if(!$('input.query-input',$(target).parent('form')).hasClass("disabled") && $(target).val().length == 0){
+        			alert("请输入查询关键字！");
+        			return;
+        		}
+        		
+				var formData = $form.serializeJson();
+				formData = $.extend({}, formData, opts.actiondata);
+				var labelArray = $form.formToLabelArray();
 				
-				if(opts.callback && typeof opts.callback == 'function'){
-					var formData = $form.serializeJson();
-					if(opts.callback.call($form, formData)){
-						if($('.cacel-search',$form).is(":visible")){
-							$('.advanced-search-caret-btn',$form).popover('toggle');
+				var url = opts.actionurl;
+				if(!url){
+					alert("您没有指定查询地址，请确认已设置actionurl属性");
+					return;
+				}
+				
+				$.ajax( {
+			        "dataType": 'json',
+			        "type": 'post',
+			        "url": url,
+			        "data": formData,
+			        "contentType": "application/x-www-form-urlencoded; charset=UTF-8",
+			        "success": function(data){
+			        	if(opts.success && typeof opts.success == 'function'){
+							if(opts.success.call(null, data, labelArray)){
+								if(opts.advancedSearch == true){
+									if($('.cacel-search',$form).is(":visible")){
+										$('input.query-input',$form).val("");
+										$('.advanced-search-caret-btn',$form).popover('toggle');
+									}
+								}
+							}
+						}
+			        },
+			        "error":function(data){
+			        	if(opts.error && typeof opts.error == 'function'){
+			        		opts.error.call(null,data);
+							if(opts.advancedSearch == true){
+								if($('.cacel-search',$form).is(":visible")){
+									$('.advanced-search-caret-btn',$form).popover('toggle');
+								}
+							}
 						}
 					}
-				}
+			      });
+				
 			}).on('click','.cacel-search',function(){
-				$('.advanced-search-caret-btn',$form).popover('toggle');
+				if(opts.advancedSearch == true){
+					$('.advanced-search-caret-btn',$form).popover('toggle');
+				}
 			}).on('click','.do-search',function(){
 				$form.submit();
 			});
 		}
 		
-		var selectPopupContentTemplate = $($.getTemplateById(opts.templateid)).html();
-		if(selectPopupContentTemplate == undefined){
-			$.ajax( {
-		        "dataType": 'html',
-		        "type": 'post',
-		        "url": templateurl[opts.templateid],
-		        "data": opts.templateQeryParams,
-		        "contentType": "application/x-www-form-urlencoded; charset=UTF-8",
-		        "success": function(html){
-		        	_initPopupSearch(target, html, opts);
-		        	$.addTemplate(opts.templateid, html);
-		        },
-		        "error":function(data){
-		        	alert("加载查询页面失败,请刷新后重试！");
-		        	return;
+		if(opts.advancedSearch == true){
+			var templateUrl = opts.advancedSearchConfig.templateUrl;
+			if(templateUrl){
+				var selectPopupContentTemplate = $($.getTemplateById(templateUrl)).html();
+				if(selectPopupContentTemplate == undefined){
+					$.ajax( {
+				        "dataType": 'html',
+				        "type": 'post',
+				        "url": templateUrl,
+				        "data": opts.advancedSearchConfig.templateInitData,
+				        "contentType": "application/x-www-form-urlencoded; charset=UTF-8",
+				        "success": function(html){
+				        	$.addTemplate(templateUrl, html);
+				        	_initPopupSearch(target, html, opts);
+				        },
+				        "error":function(data){
+				        	alert("加载查询页面失败,请刷新后重试！");
+				        	return;
+						}
+				      } );
+				}else{
+					_initPopupSearch(target, selectPopupContentTemplate, opts);
 				}
-		      } );
-		}else{
-			_initPopupSearch(target, selectPopupContentTemplate, opts);
+			}
 		}
-		
 	}
 	
 	function _initPopupSearch(target, templateContent, opts){
-		$form = $(target).parent('form');
+		var $form = $(target).parent('form');
 		if($form.length == 0){
 			return;
 		}
 		var options = {
 				html:true,
-				placement:opts.placement,
+				placement:opts.advancedSearchConfig.placement,
 				content:templateContent,
 				template:_getSelectPopupTemplate(),
 				container: $form
 		};
-		$('.advanced-search-caret-btn',$(target).parent('form')).popover(options)
+		$('.advanced-search-caret-btn',$form).popover(options)
 																.on('shown.bs.popover', function (e) {
-																	console.log($('.selectpicker',$(target).parent('form')));
-																		$('.selectpicker',$(target).parent('form')).selectpicker();
-																		$('input.query-input',$(target).parent('form')).addClass("disabled").attr("disabled",true);
+																		$('input.query-input',$form).addClass("disabled").attr("disabled",true);
+																		
+																		if(opts.advancedSearchConfig.showCallback && typeof opts.advancedSearchConfig.showCallback == 'function'){
+																			var formData = $form.serializeJson();
+																			opts.advancedSearchConfig.showCallback.call(null,$form);
+																		}
 																	})
 																.on('hide.bs.popover', function (e) {
-																		//$('.selectpicker',$(target).parent('form')).selectpicker("destroy");
-																		$('input.query-input',$(target).parent('form')).removeClass("disabled").attr("disabled",false);
+																		$('input.query-input',$form).removeClass("disabled").attr("disabled",false);
+																		if(opts.advancedSearchConfig.hideCallback && typeof opts.advancedSearchConfig.hideCallback == 'function'){
+																			var formData = $form.serializeJson();
+																			opts.advancedSearchConfig.hideCallback.call(null,$form);
+																		}
 																	});
 	}
 	
@@ -121,14 +170,25 @@
 		return $.extend({}, $.parser.parseOptions(target, []), {});
 	};
 	
+	/**
+	 * advancedSearchConfig:
+	 * {
+	 * 		templateUrl:null,
+	 * 		templateInitData:{},
+	 * 		showCallback:function($container){},
+	 * 		hideCallback:function($container){},
+	 * 		placement:'bottom' /"bottom | bottom-right"/}
+	 * 
+	 * */
 	$.fn.searchinput.defaults = {
-		templateid:'template-search-student-widget',/*string 'template-search-student-widget' | 'template-search-dormitory-widget' */
-		//templateurl:null,/*string will get template from server and store it*/
-		templateQeryParams:{},/*object When request remote data, sending additional parameters*/
-		callback:undefined,
-		placement:'bottom' /*"bottom | bottom-right"*/
-		//actionurl:null
-		//container:false /*string | false Appends the popover to a specific element container: 'body'*/
+		actionurl:null,/**查询表单要提交到的url**/
+		actiondata:null,
+		placeholder:'请输入关键字',
+		label:'关键字',
+		advancedSearch:false,/*是否支持高级查询*/
+		advancedSearchConfig:null,//见上面注释
+		success:function(data){},
+		error:function(data){}
 	};
 	
 })(jQuery);

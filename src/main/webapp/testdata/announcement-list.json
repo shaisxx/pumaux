@@ -1,0 +1,12 @@
+{
+    "total": "100",
+    "rows": [
+        {
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "title": "通知标题",
+            "publishtime": "2013-09-10 05:34:39",
+            "publisher":"张老师",
+            "status":"置顶"
+        }
+    ]
+}

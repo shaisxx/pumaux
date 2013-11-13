@@ -1,0 +1,20 @@
+{
+    "total": "100",
+    "rows": [
+        {
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "name": "张三",
+            "clazz": "一班",
+            "delivertime": "2013-09-10 05:34:39",
+            "status":"已批阅",
+            "score":"75"
+        },{
+            "id": "255cc0ea44da4d749cfa6b00409416f4",
+            "name": "李四",
+            "clazz": "二班",
+            "delivertime": "2013-09-10 05:34:39",
+            "status":"未批阅",
+            "score":"90"
+        }
+    ]
+}

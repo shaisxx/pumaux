@@ -1,0 +1,118 @@
+<meta charset="utf-8">
+<section class="gallery header-nav" style="height:90px; padding-top:5px;padding-left:15px;box-shadow: 0 0 2px rgba(0, 0, 0, 0.176);">
+    <ul>
+        <li><a class="button button-circle button-flat-primary min" style="font-size:30px;" href="#module=space.personalmodule|{}"><i class="icon-user"></i></a><div class="text-label">个人信息 </div> </li>
+        <li><a class="button button-circle button-flat-action min" style="font-size:30px;" href="#module=space.taskmodule|{}"><i class="icon-tasks"></i></a><div class="text-label">任务管理</div> </li>
+        <li><a class="button button-circle button-flat-highlight min" style="font-size:30px;" href="#module=space.recruitmodule|{}"><i class="icon-coffee"></i></a><div class="text-label">模拟招聘 </div> </li>
+        <li><a class="button button-circle button-flat-caution min" style="font-size:35px;" href="#module=space.announcementmodule|{}"><i class="icon-envelope"></i></a><div class="text-label">通知公告 </div> </li>
+        <li><a class="button button-circle button-flat-royal min" style="font-size:35px;" href="http://www.baidu.com" target="_blank"><i class="icon-comments"></i></a><div class="text-label">消息中心 </div> </li>
+    </ul>
+</section>
+<div class="scrollable" style="height:calc(100% - 90px);overflow:auto;padding:20px;">
+	<ul class="nav nav-tabs ">
+      <li  class="active" ><a href="#individual" data-toggle="tab">个人信息</a></li>
+      <li><a href="#zuzhi" data-toggle="tab">修改密码</a></li>
+    </ul>
+    <div class="tab-content ">
+      <div class="tab-pane active" id="individual">
+        <div class=" modal-body  col-md-8">
+				<div>
+					<div class="bs-example">
+						<table class="form-table">
+							<tbody>
+								<tr>
+									<td width="80px"></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>姓名：</td>
+									<td>
+										<input type="text" class="form-control" value="张老师">
+									</td>
+								</tr>
+								<tr>
+									<td>性别：</td>
+									<td>
+										<label  class="radio-inline">
+								          <input type="radio" name="gender"> 男
+								        </label>
+								        <label  class="radio-inline">
+								          <input type="radio" name="gender"> 女
+								        </label>
+									</td>
+								</tr>
+								<tr>
+									<td>生日：</td>
+									<td>
+										<input type="text" class="datepicker form-control">
+									</td>
+								</tr>
+								<tr>
+									<td>政治面貌：</td>
+									<td>
+										<select class="selectpicker" name="politics">
+											<option value="">选择政治面貌</option>
+											<option value="senior">党员</option>
+											<option value="junior">九三学社</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>职称：</td>
+									<td>
+										<select class="selectpicker" name="level">
+											<option value="">选择职称</option>
+											<option value="senior">高工</option>
+											<option value="junior">初级</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				    <div class="highlight">
+				    	<button class="btn btn-success btn-sm edit-score" type="button">保存个人信息</button>
+				    </div>
+				</div>
+			</div>
+      </div>
+      <div class="tab-pane" id="zuzhi">
+      		<div class=" modal-body  col-md-8">
+				<div>
+					<div class="bs-example">
+						<table class="form-table">
+							<tbody>
+								<tr>
+									<td width="80px"></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>原密码：</td>
+									<td>
+										<input type="password" class="form-control" value="张老师">
+									</td>
+								</tr>
+								<tr>
+									<td>新密码：</td>
+									<td>
+										<input type="password" class="form-control" value="张老师">
+									</td>
+								</tr>
+								<tr>
+									<td>确认新密码：</td>
+									<td>
+										<input type="password" class="form-control" value="张老师">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				    <div class="highlight">
+				    	<button class="btn btn-success btn-sm edit-score" type="button">修改密码信息</button>
+				    </div>
+				</div>
+			</div>
+			
+      </div>
+    </div>
+</div>
